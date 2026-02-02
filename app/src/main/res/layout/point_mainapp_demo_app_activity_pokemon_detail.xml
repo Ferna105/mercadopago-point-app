@@ -51,6 +51,16 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
+            <ImageView
+                android:id="@+id/point_mainapp_demo_app_detail_image"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                tools:visibility="visible"
+                tools:src="@drawable/point_mainapp_demo_app_ic_info" />
+
             <TextView
                 android:id="@+id/point_mainapp_demo_app_detail_name"
                 android:layout_width="wrap_content"

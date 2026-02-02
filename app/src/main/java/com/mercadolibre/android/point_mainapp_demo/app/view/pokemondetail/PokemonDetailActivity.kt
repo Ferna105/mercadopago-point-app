@@ -1,5 +1,6 @@
 package com.mercadolibre.android.point_mainapp_demo.app.view.pokemondetail
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -7,6 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mercadolibre.android.point_mainapp_demo.app.R
 import com.mercadolibre.android.point_mainapp_demo.app.data.dto.PokemonDetailResponse
 import com.mercadolibre.android.point_mainapp_demo.app.databinding.PointMainappDemoAppActivityPokemonDetailBinding
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
 
 class PokemonDetailActivity : AppCompatActivity() {
 
@@ -64,7 +71,42 @@ class PokemonDetailActivity : AppCompatActivity() {
                 R.string.point_mainapp_demo_app_pokemon_experience,
                 pokemon.baseExperience ?: 0
             )
+
+            val imageUrl = pokemon.sprites?.frontDefault
+            if (!imageUrl.isNullOrBlank()) {
+                pointMainappDemoAppDetailImage.visibility = View.VISIBLE
+                loadImageFromUrl(imageUrl)
+            } else {
+                pointMainappDemoAppDetailImage.visibility = View.GONE
+            }
         }
+    }
+
+    private fun loadImageFromUrl(url: String) {
+        val request = Request.Builder().url(url).build()
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    binding?.pointMainappDemoAppDetailImage?.visibility = View.GONE
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) {
+                    runOnUiThread {
+                        binding?.pointMainappDemoAppDetailImage?.visibility = View.GONE
+                    }
+                    return
+                }
+                response.body()?.bytes()?.let { bytes ->
+                    BitmapFactory.decodeByteArray(bytes, 0, bytes.size)?.let { bitmap ->
+                        runOnUiThread {
+                            binding?.pointMainappDemoAppDetailImage?.setImageBitmap(bitmap)
+                        }
+                    }
+                }
+            }
+        })
     }
 
     private fun showError(message: String) {
