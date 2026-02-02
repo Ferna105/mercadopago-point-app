@@ -57,6 +57,12 @@
         <activity
             android:name=".view.refunds.RefundsActivity"
             android:exported="false" />
+        <activity
+            android:name=".view.itemslist.ItemsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.pokemondetail.PokemonDetailActivity"
+            android:exported="false" />
 
         <meta-data android:name="com.mercadolibre.android.sdk.PLATFORM_ID"
             android:value="dev-main-test-app-demo" />

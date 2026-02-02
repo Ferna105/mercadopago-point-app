@@ -69,6 +69,15 @@
         <item>Portrait</item>
     </string-array>
 
+    <!-- Items list -->
+    <string name="point_mainapp_demo_app_btn_items_list">Listado de elementos</string>
+    <string name="point_mainapp_demo_app_items_list_error">Error al cargar el listado</string>
+
+    <!-- Pokemon detail -->
+    <string name="point_mainapp_demo_app_pokemon_height_weight">Height: %1$d • Weight: %2$d</string>
+    <string name="point_mainapp_demo_app_pokemon_types">Types: %s</string>
+    <string name="point_mainapp_demo_app_pokemon_experience">Base experience: %d</string>
+
     <!-- Smart info -->
     <string name="point_mainapp_demo_app_smart_info_main_title">Smart info</string>
     <string name="point_mainapp_demo_app_serial_number_text">Serial number: %s</string>

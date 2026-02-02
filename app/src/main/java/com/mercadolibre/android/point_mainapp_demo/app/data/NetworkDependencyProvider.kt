@@ -33,4 +33,15 @@ object NetworkDependencyProvider {
 
     val refundsService: RefundsService =
         mpApiClient.create(RefundsService::class.java)
+
+    private val pokeApiClient: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(NetworkConstants.POKEAPI_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(converterFactory)
+            .build()
+    }
+
+    val itemsService: ItemsService =
+        pokeApiClient.create(ItemsService::class.java)
 }
