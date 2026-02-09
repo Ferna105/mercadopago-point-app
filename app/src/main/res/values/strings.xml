@@ -6,6 +6,7 @@
     <string name="point_mainapp_demo_app_login_username_hint">Usuario</string>
     <string name="point_mainapp_demo_app_login_password_hint">Contraseña</string>
     <string name="point_mainapp_demo_app_login_button">Entrar</string>
+    <string name="point_mainapp_demo_app_login_mercado_pago">Ingresar con Mercado Pago</string>
     <string name="point_mainapp_demo_app_login_error">Usuario o contraseña incorrectos</string>
     <string name="point_mainapp_demo_app_lab_send_payment_action">Launch Payment</string>
     <string name="point_mainapp_demo_app_lab_get_payment_method_action">Get Payment method</string>
@@ -77,7 +78,7 @@
     </string-array>
 
     <!-- Store products list -->
-    <string name="point_mainapp_demo_app_btn_store_products_list">Productos del store</string>
+    <string name="point_mainapp_demo_app_btn_store_products_list">Productos de la tienda</string>
     <string name="point_mainapp_demo_app_store_products_list_error">Error al cargar los productos</string>
     <string name="point_mainapp_demo_app_store_products_count">%d productos</string>
     <string name="point_mainapp_demo_app_add_to_cart">Agregar al carrito</string>

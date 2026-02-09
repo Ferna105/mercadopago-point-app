@@ -17,6 +17,14 @@ class LoginActivity : AppCompatActivity() {
         binding = PointMainappDemoAppActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setupLoginButton()
+        setupMercadoPagoButton()
+    }
+
+    private fun setupMercadoPagoButton() {
+        binding?.pointMainappDemoAppLoginMercadoPago?.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+        }
     }
 
     private fun setupLoginButton() {

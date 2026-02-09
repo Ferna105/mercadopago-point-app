@@ -93,6 +93,6 @@
         android:contentDescription="@string/point_mainapp_demo_app_cart_title"
         android:src="@drawable/point_mainapp_demo_app_ic_receipt"
         app:backgroundTint="@color/secondaryColor"
-        app:tint="@color/primaryDarkColor" />
+        app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -18,7 +18,8 @@
             android:background="@color/dark_grey"
             app:title="@string/point_mainapp_demo_app_cart_title"
             app:titleTextColor="@color/primaryTextColor"
-            app:navigationIcon="@drawable/point_mainapp_demo_app_white_arrow_back" />
+            app:navigationIcon="@drawable/point_mainapp_demo_app_white_arrow_back"
+            app:navigationIconTint="@color/primaryTextColor" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView

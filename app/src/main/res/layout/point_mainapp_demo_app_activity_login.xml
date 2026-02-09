@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_login_title"
-        app:hintTextColor="@color/primaryTextColor">
+        app:hintTextColor="@color/grayLight">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/point_mainapp_demo_app_login_username"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_login_username_layout"
-        app:hintTextColor="@color/primaryTextColor">
+        app:hintTextColor="@color/grayLight">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/point_mainapp_demo_app_login_password"
@@ -88,5 +88,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_login_error" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/point_mainapp_demo_app_login_mercado_pago"
+        style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonSecondary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_2m"
+        android:text="@string/point_mainapp_demo_app_login_mercado_pago"
+        app:cornerRadius="@dimen/ui_1_25m"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_login_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
