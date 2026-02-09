@@ -56,6 +56,10 @@ class PaymentLauncherActivity : AppCompatActivity() {
             adapter = paymentMethodAdapter
         }
 
+        intent.getStringExtra(EXTRA_PREFILL_AMOUNT)?.let { amount ->
+            binding.amountEditText.setText(amount)
+        }
+
         configPaymentButton()
         configPayerConditionDropDown()
         isAutomaticPrintOnTerminal()
@@ -187,6 +191,7 @@ class PaymentLauncherActivity : AppCompatActivity() {
         text.toString().takeIf { it != NO_TAX }
 
     companion object {
+        const val EXTRA_PREFILL_AMOUNT = "extra_prefill_amount"
         private const val ERROR_INVALID_AMOUNT = "Amount is null or empty"
         private const val MESSAGE_PAYMENT_CANCELED = "Your payment was %s"
         private const val MESSAGE_PAYMENT_SUCCESS = "Your payment reference is: %s"

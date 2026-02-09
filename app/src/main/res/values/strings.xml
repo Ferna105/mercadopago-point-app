@@ -88,6 +88,7 @@
     <string name="point_mainapp_demo_app_cart_title">Carrito</string>
     <string name="point_mainapp_demo_app_cart_empty">Tu carrito está vacío</string>
     <string name="point_mainapp_demo_app_cart_total">Total: %s</string>
+    <string name="point_mainapp_demo_app_cart_go_to_pay">Ir a pagar</string>
     <string name="point_mainapp_demo_app_cart_quantity_format">Cant: %d</string>
     <string name="point_mainapp_demo_app_cart_subtotal_format">$%.2f</string>
     <string name="point_mainapp_demo_app_cart_remove">Quitar</string>
