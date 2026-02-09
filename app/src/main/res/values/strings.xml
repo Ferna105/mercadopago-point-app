@@ -1,5 +1,12 @@
 <resources>
     <string name="point_mainapp_demo_app_name">Demo Launcher Integration</string>
+
+    <!-- Login -->
+    <string name="point_mainapp_demo_app_login_title">Iniciar sesión</string>
+    <string name="point_mainapp_demo_app_login_username_hint">Usuario</string>
+    <string name="point_mainapp_demo_app_login_password_hint">Contraseña</string>
+    <string name="point_mainapp_demo_app_login_button">Entrar</string>
+    <string name="point_mainapp_demo_app_login_error">Usuario o contraseña incorrectos</string>
     <string name="point_mainapp_demo_app_lab_send_payment_action">Launch Payment</string>
     <string name="point_mainapp_demo_app_lab_get_payment_method_action">Get Payment method</string>
     <string name="point_mainapp_demo_app_title">Demo Launcher Integration App</string>
@@ -69,14 +76,21 @@
         <item>Portrait</item>
     </string-array>
 
-    <!-- Items list -->
-    <string name="point_mainapp_demo_app_btn_items_list">Listado de elementos</string>
-    <string name="point_mainapp_demo_app_items_list_error">Error al cargar el listado</string>
+    <!-- Store products list -->
+    <string name="point_mainapp_demo_app_btn_store_products_list">Productos del store</string>
+    <string name="point_mainapp_demo_app_store_products_list_error">Error al cargar los productos</string>
+    <string name="point_mainapp_demo_app_store_products_count">%d productos</string>
+    <string name="point_mainapp_demo_app_store_status_active">Activo</string>
+    <string name="point_mainapp_demo_app_store_status_inactive">Inactivo</string>
 
-    <!-- Pokemon detail -->
-    <string name="point_mainapp_demo_app_pokemon_height_weight">Height: %1$d • Weight: %2$d</string>
-    <string name="point_mainapp_demo_app_pokemon_types">Types: %s</string>
-    <string name="point_mainapp_demo_app_pokemon_experience">Base experience: %d</string>
+    <!-- Product detail -->
+    <string name="point_mainapp_demo_app_product_detail_description_label">Descripción</string>
+    <string name="point_mainapp_demo_app_product_detail_id_format">ID: %s</string>
+    <string name="point_mainapp_demo_app_product_detail_category_format">Categoría: %s</string>
+    <string name="point_mainapp_demo_app_product_detail_store_format">Store: %s</string>
+    <string name="point_mainapp_demo_app_product_detail_active_format">Activo: %s</string>
+    <string name="point_mainapp_demo_app_yes">Sí</string>
+    <string name="point_mainapp_demo_app_no">No</string>
 
     <!-- Smart info -->
     <string name="point_mainapp_demo_app_smart_info_main_title">Smart info</string>

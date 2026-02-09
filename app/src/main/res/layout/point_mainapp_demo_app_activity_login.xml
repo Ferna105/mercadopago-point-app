@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryLightColor"
+    android:padding="@dimen/ui_3m"
+    tools:context=".view.login.LoginActivity">
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/point_mainapp_demo_app_login_title"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/ui_title_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/point_mainapp_demo_app_login_username_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_4m"
+        android:hint="@string/point_mainapp_demo_app_login_username_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_login_title"
+        app:hintTextColor="@color/primaryTextColor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/point_mainapp_demo_app_login_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHint="@color/grayLight" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/point_mainapp_demo_app_login_password_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_2m"
+        android:hint="@string/point_mainapp_demo_app_login_password_hint"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_login_username_layout"
+        app:hintTextColor="@color/primaryTextColor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/point_mainapp_demo_app_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHint="@color/grayLight" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_login_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_2m"
+        android:visibility="gone"
+        android:textColor="@color/secondaryColor"
+        android:textSize="@dimen/ui_body_line_height_xs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_login_password_layout"
+        tools:text="Usuario o contraseña incorrectos"
+        tools:visibility="visible" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/point_mainapp_demo_app_login_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_3m"
+        android:text="@string/point_mainapp_demo_app_login_button"
+        app:cornerRadius="@dimen/ui_1_25m"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_login_error" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

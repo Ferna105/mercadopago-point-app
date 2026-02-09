@@ -5,5 +5,6 @@ import com.mercadolibre.android.point_mainapp_demo.app.view.home.HomeActivity
 
 sealed class HomeActions {
    class LaunchActivity(val activity: Class<*>) : HomeActions()
-   class LaunchBtUi(val actionManager:MPManager) : HomeActions()
+   class LaunchBtUi(val actionManager: MPManager) : HomeActions()
+   class LaunchStoreProductsList(val storeId: String) : HomeActions()
 }

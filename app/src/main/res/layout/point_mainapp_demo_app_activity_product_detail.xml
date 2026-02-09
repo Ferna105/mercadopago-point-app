@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/primaryLightColor"
     android:padding="@dimen/ui_3m"
-    tools:context=".view.pokemondetail.PokemonDetailActivity">
+    tools:context=".view.productdetail.ProductDetailActivity">
 
     <ProgressBar
-        android:id="@+id/point_mainapp_demo_app_detail_progress"
+        android:id="@+id/point_mainapp_demo_app_product_detail_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -20,7 +20,7 @@
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/point_mainapp_demo_app_detail_error"
+        android:id="@+id/point_mainapp_demo_app_product_detail_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/ui_3m"
@@ -35,7 +35,7 @@
         tools:visibility="visible" />
 
     <ScrollView
-        android:id="@+id/point_mainapp_demo_app_detail_content"
+        android:id="@+id/point_mainapp_demo_app_product_detail_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
@@ -51,61 +51,78 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <ImageView
-                android:id="@+id/point_mainapp_demo_app_detail_image"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:contentDescription="@null"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                tools:visibility="visible"
-                tools:src="@drawable/point_mainapp_demo_app_ic_info" />
-
             <TextView
-                android:id="@+id/point_mainapp_demo_app_detail_name"
+                android:id="@+id/point_mainapp_demo_app_product_detail_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/ui_2m"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/ui_title_size"
                 android:textStyle="bold"
-                tools:text="Bulbasaur" />
+                tools:text="Café Americano" />
 
             <TextView
-                android:id="@+id/point_mainapp_demo_app_detail_id"
+                android:id="@+id/point_mainapp_demo_app_product_detail_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/ui_1m"
                 android:textColor="@color/grayLight"
                 android:textSize="@dimen/ui_body_line_height_m"
-                tools:text="#1" />
+                tools:text="ID: 1" />
 
             <TextView
-                android:id="@+id/point_mainapp_demo_app_detail_height_weight"
+                android:id="@+id/point_mainapp_demo_app_product_detail_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ui_2m"
+                android:textColor="@color/secondaryColor"
+                android:textSize="@dimen/ui_title_line_height_s"
+                tools:text="$2.50" />
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_product_detail_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ui_1_25m"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/ui_body_line_height_m"
+                tools:text="Categoría: Bebidas" />
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_product_detail_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ui_1_25m"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/ui_body_line_height_m"
+                tools:text="Store: Store 1" />
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_product_detail_description_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ui_2m"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/ui_body_line_height_xs"
+                android:text="@string/point_mainapp_demo_app_product_detail_description_label" />
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_product_detail_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ui_050m"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/ui_body_line_height_m"
+                tools:text="Café negro recién preparado." />
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_product_detail_active"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/ui_2m"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="@dimen/ui_medium_body_size"
-                tools:text="Height: 7 • Weight: 69" />
-
-            <TextView
-                android:id="@+id/point_mainapp_demo_app_detail_types"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/ui_1_25m"
-                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/ui_body_line_height_m"
-                tools:text="Types: grass, poison" />
-
-            <TextView
-                android:id="@+id/point_mainapp_demo_app_detail_experience"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/ui_1_25m"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="@dimen/ui_body_line_height_m"
-                tools:text="Base experience: 64" />
+                tools:text="Activo: Sí" />
 
         </LinearLayout>
     </ScrollView>

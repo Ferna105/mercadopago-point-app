@@ -1,5 +1,6 @@
 package com.mercadolibre.android.point_mainapp_demo.app.view.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import com.mercadolibre.android.point_mainapp_demo.app.actions.contract.HomeActi
 import com.mercadolibre.android.point_mainapp_demo.app.actions.view.HomeActionAdapter
 import com.mercadolibre.android.point_mainapp_demo.app.databinding.PointMainappDemoAppActivityHomeBinding
 import com.mercadolibre.android.point_mainapp_demo.app.util.launchActivity
+import com.mercadolibre.android.point_mainapp_demo.app.view.storeproductslist.StoreProductsListActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -50,6 +52,10 @@ class HomeActivity : AppCompatActivity() {
         when (action) {
             is HomeActions.LaunchActivity -> launchActivity(action.activity)
             is HomeActions.LaunchBtUi -> action.actionManager.bluetoothUiSettings.launch(this@HomeActivity)
+            is HomeActions.LaunchStoreProductsList -> startActivity(
+                Intent(this, StoreProductsListActivity::class.java)
+                    .putExtra(StoreProductsListActivity.EXTRA_STORE_ID, action.storeId)
+            )
         }
     }
 }

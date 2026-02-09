@@ -15,7 +15,7 @@ import com.mercadolibre.android.point_mainapp_demo.app.view.payment.result.Payme
 import com.mercadolibre.android.point_mainapp_demo.app.view.printer.PrinterBitmapActivity
 import com.mercadolibre.android.point_mainapp_demo.app.view.printer.PrinterCustomTagActivity
 import com.mercadolibre.android.point_mainapp_demo.app.view.refunds.RefundsActivity
-import com.mercadolibre.android.point_mainapp_demo.app.view.itemslist.ItemsListActivity
+import com.mercadolibre.android.point_mainapp_demo.app.view.storeproductslist.StoreProductsListActivity
 
 object ActionsProviderImpl : ActionsProvider {
     override fun getActions(context: Context): List<ActionModel> {
@@ -101,12 +101,12 @@ object ActionsProviderImpl : ActionsProvider {
                 action = HomeActions.LaunchActivity(SmartInfoActivity::class.java)
             ),
             ActionModel(
-                title = context.getString(R.string.point_mainapp_demo_app_btn_items_list),
+                title = context.getString(R.string.point_mainapp_demo_app_btn_store_products_list),
                 icon = AppCompatResources.getDrawable(
                     context,
                     R.drawable.point_mainapp_demo_app_ic_options
                 ),
-                action = HomeActions.LaunchActivity(ItemsListActivity::class.java)
+                action = HomeActions.LaunchStoreProductsList(storeId = "1")
             ),
         )
     }

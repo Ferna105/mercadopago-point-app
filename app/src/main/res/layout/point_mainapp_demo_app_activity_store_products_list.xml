@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryLightColor"
-    tools:context=".view.itemslist.ItemsListActivity">
+    tools:context=".view.storeproductslist.StoreProductsListActivity">
 
     <ProgressBar
-        android:id="@+id/point_mainapp_demo_app_items_progress"
+        android:id="@+id/point_mainapp_demo_app_store_products_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -19,7 +19,7 @@
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/point_mainapp_demo_app_items_error"
+        android:id="@+id/point_mainapp_demo_app_store_products_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/ui_3m"
@@ -33,8 +33,40 @@
         tools:text="Error al cargar"
         tools:visibility="visible" />
 
+    <LinearLayout
+        android:id="@+id/point_mainapp_demo_app_store_info_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/ui_3m"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_store_info_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/primaryTextColor"
+            android:textStyle="bold"
+            tools:text="Cafetería Central" />
+
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_store_info_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ui_1m"
+            android:textSize="18sp"
+            android:textColor="@color/primaryTextColor"
+            android:lineSpacingMultiplier="1.2"
+            tools:text="Café de especialidad y pastelería artesanal." />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/point_mainapp_demo_app_items_recycler"
+        android:id="@+id/point_mainapp_demo_app_store_products_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/ui_2m"
@@ -42,9 +74,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_store_info_container"
         tools:itemCount="5"
-        tools:listitem="@layout/point_mainapp_demo_app_item_element"
+        tools:listitem="@layout/point_mainapp_demo_app_item_product"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
