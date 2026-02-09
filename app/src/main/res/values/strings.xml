@@ -80,8 +80,17 @@
     <string name="point_mainapp_demo_app_btn_store_products_list">Productos del store</string>
     <string name="point_mainapp_demo_app_store_products_list_error">Error al cargar los productos</string>
     <string name="point_mainapp_demo_app_store_products_count">%d productos</string>
+    <string name="point_mainapp_demo_app_add_to_cart">Agregar al carrito</string>
     <string name="point_mainapp_demo_app_store_status_active">Activo</string>
     <string name="point_mainapp_demo_app_store_status_inactive">Inactivo</string>
+
+    <!-- Cart -->
+    <string name="point_mainapp_demo_app_cart_title">Carrito</string>
+    <string name="point_mainapp_demo_app_cart_empty">Tu carrito está vacío</string>
+    <string name="point_mainapp_demo_app_cart_total">Total: %s</string>
+    <string name="point_mainapp_demo_app_cart_quantity_format">Cant: %d</string>
+    <string name="point_mainapp_demo_app_cart_subtotal_format">$%.2f</string>
+    <string name="point_mainapp_demo_app_cart_remove">Quitar</string>
 
     <!-- Product detail -->
     <string name="point_mainapp_demo_app_product_detail_description_label">Descripción</string>

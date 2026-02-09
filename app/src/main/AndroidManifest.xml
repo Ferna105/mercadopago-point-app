@@ -63,6 +63,9 @@
         <activity
             android:name=".view.productdetail.ProductDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".cart.CartActivity"
+            android:exported="false" />
 
         <meta-data android:name="com.mercadolibre.android.sdk.PLATFORM_ID"
             android:value="dev-main-test-app-demo" />

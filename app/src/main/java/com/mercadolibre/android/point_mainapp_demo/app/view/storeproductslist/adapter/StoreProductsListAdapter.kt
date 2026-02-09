@@ -9,7 +9,8 @@ import com.mercadolibre.android.point_mainapp_demo.app.data.dto.Product
 import com.mercadolibre.android.point_mainapp_demo.app.databinding.PointMainappDemoAppItemProductBinding
 
 class StoreProductsListAdapter(
-    private val onItemClick: (Product) -> Unit = {}
+    private val onItemClick: (Product) -> Unit = {},
+    private val onAddToCart: (Product) -> Unit = {}
 ) : ListAdapter<Product, StoreProductsListAdapter.ProductViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -34,6 +35,11 @@ class StoreProductsListAdapter(
             binding.pointMainappDemoAppProductPrice.text = "$${product.price}"
             binding.pointMainappDemoAppProductCategory.text = product.category
             binding.root.setOnClickListener { onItemClick(product) }
+            binding.pointMainappDemoAppProductAddToCart.setOnClickListener {
+                it.isClickable = false
+                onAddToCart(product)
+                it.post { it.isClickable = true }
+            }
         }
     }
 

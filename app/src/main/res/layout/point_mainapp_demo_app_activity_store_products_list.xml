@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryLightColor"
     tools:context=".view.storeproductslist.StoreProductsListActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ProgressBar
         android:id="@+id/point_mainapp_demo_app_store_products_progress"
@@ -78,5 +82,17 @@
         tools:itemCount="5"
         tools:listitem="@layout/point_mainapp_demo_app_item_product"
         tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/point_mainapp_demo_app_store_products_cart_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/ui_3m"
+        android:contentDescription="@string/point_mainapp_demo_app_cart_title"
+        android:src="@drawable/point_mainapp_demo_app_ic_receipt"
+        app:backgroundTint="@color/secondaryColor"
+        app:tint="@color/primaryDarkColor" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

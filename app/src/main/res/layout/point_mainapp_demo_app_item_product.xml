@@ -43,6 +43,16 @@
             android:textSize="@dimen/ui_body_line_height_xs"
             tools:text="Bebidas" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/point_mainapp_demo_app_product_add_to_cart"
+            style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/ui_2m"
+            android:text="@string/point_mainapp_demo_app_add_to_cart"
+            android:textSize="14sp" />
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

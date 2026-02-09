@@ -6,6 +6,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.mercadolibre.android.point_mainapp_demo.app.cart.CartActivity
+import com.mercadolibre.android.point_mainapp_demo.app.cart.CartRepository
 import com.mercadolibre.android.point_mainapp_demo.app.data.dto.Product
 import com.mercadolibre.android.point_mainapp_demo.app.data.dto.Store
 import com.mercadolibre.android.point_mainapp_demo.app.databinding.PointMainappDemoAppActivityStoreProductsListBinding
@@ -16,12 +19,20 @@ class StoreProductsListActivity : AppCompatActivity() {
 
     private var binding: PointMainappDemoAppActivityStoreProductsListBinding? = null
     private val viewModel: StoreProductsListViewModel by viewModels()
-    private val adapter = StoreProductsListAdapter { product ->
-        startActivity(
-            Intent(this, ProductDetailActivity::class.java)
-                .putExtra(ProductDetailActivity.EXTRA_PRODUCT_ID, product.id)
-        )
-    }
+    private val adapter = StoreProductsListAdapter(
+        onItemClick = { product ->
+            startActivity(
+                Intent(this, ProductDetailActivity::class.java)
+                    .putExtra(ProductDetailActivity.EXTRA_PRODUCT_ID, product.id)
+            )
+        },
+        onAddToCart = { product ->
+            CartRepository.addProduct(product, 1)
+            binding?.root?.let { root ->
+                Snackbar.make(root, "${product.name} agregado al carrito", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +40,15 @@ class StoreProductsListActivity : AppCompatActivity() {
         binding?.run { setContentView(root) }
         val storeId = intent.getStringExtra(EXTRA_STORE_ID) ?: DEFAULT_STORE_ID
         setupRecyclerView()
+        setupCartFab()
         setupObservers()
         viewModel.loadProducts(storeId)
+    }
+
+    private fun setupCartFab() {
+        binding?.pointMainappDemoAppStoreProductsCartFab?.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
+        }
     }
 
     private fun setupRecyclerView() {
