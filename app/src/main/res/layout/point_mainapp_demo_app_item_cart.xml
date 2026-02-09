@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/ui_050m"
-                    android:textColor="@color/secondaryColor"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/ui_body_size"
                     tools:text="$2.50" />
             </LinearLayout>
