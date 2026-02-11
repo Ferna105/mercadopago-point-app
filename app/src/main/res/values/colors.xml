@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
-    <!-- App background -->
-    <color name="primaryLightColor">#0e7490</color>
-    <!-- Buttons: black with white text -->
-    <color name="primaryColor">#000000</color>
-    <color name="primaryDarkColor">#000000</color>
-    <color name="secondaryColor">#000000</color>
-    <color name="secondaryLightColor">#1a1a1a</color>
-    <color name="secondaryDarkColor">#000000</color>
-    <!-- Text on dark background -->
-    <color name="primaryTextColor">#FFFFFF</color>
-    <color name="secondaryTextColor">#E5E7EB</color>
-    <!-- Surfaces -->
+    <!-- Barrita tema público (menu): fondos claros, texto oscuro, acento rojo -->
+    <!-- Fondo de pantalla = gray-50 -->
+    <color name="primaryLightColor">#F9FAFB</color>
+    <!-- Acento / CTAs = red-500 -->
+    <color name="primaryColor">#EF4444</color>
+    <color name="primaryDarkColor">#DC2626</color>
+    <color name="secondaryColor">#EF4444</color>
+    <color name="secondaryLightColor">#FEE2E2</color>
+    <color name="secondaryDarkColor">#DC2626</color>
+    <!-- Texto sobre fondos claros = gray-900 / gray-600 -->
+    <color name="primaryTextColor">#111827</color>
+    <color name="secondaryTextColor">#4B5563</color>
+    <!-- Grises -->
+    <color name="grayLight">#6B7280</color>
+    <color name="grayDark">#4B5563</color>
+    <color name="gray_200">#E5E7EB</color>
+    <!-- Superficies: cards = white, bordes = gray-200 -->
+    <color name="dark_grey">#FFFFFF</color>
     <color name="doneColor">#45C246</color>
-    <color name="dark_grey">#1a1a1a</color>
-    <color name="grayLight">#9CA3AF</color>
-    <color name="grayDark">#E5E7EB</color>
-    <color name="gray_200">#374151</color>
+    <!-- Botón Mercado Pago (celeste) -->
     <color name="mercado_pago_blue">#24A6F2</color>
 </resources>
