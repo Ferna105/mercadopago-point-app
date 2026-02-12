@@ -85,8 +85,32 @@ class StoreProductsListActivity : AppCompatActivity() {
             pointMainappDemoAppStoreProductsRecycler.visibility = View.VISIBLE
             pointMainappDemoAppStoreInfoName.text = store.name
             pointMainappDemoAppStoreInfoDescription.text = store.description
+            loadStoreImage(store.image)
         }
         adapter.submitList(products)
+    }
+
+    private fun loadStoreImage(imageRef: String) {
+        val imageView = binding?.pointMainappDemoAppStoreInfoImage ?: return
+        if (imageRef.isBlank()) {
+            imageView.visibility = View.GONE
+            return
+        }
+        imageView.visibility = View.VISIBLE
+        when {
+            imageRef.startsWith("http") -> {
+                // Si en el futuro el mock devuelve una URL, aquí se podría usar Coil/Glide
+                imageView.visibility = View.GONE
+            }
+            else -> {
+                val resId = resources.getIdentifier(imageRef, "drawable", packageName)
+                if (resId != 0) {
+                    imageView.setImageResource(resId)
+                } else {
+                    imageView.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun showError(message: String) {

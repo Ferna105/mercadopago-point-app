@@ -49,10 +49,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
+        <ImageView
+            android:id="@+id/point_mainapp_demo_app_store_info_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
+            android:maxHeight="160dp"
+            tools:src="@drawable/point_mainapp_demo_app_store" />
+
         <TextView
             android:id="@+id/point_mainapp_demo_app_store_info_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ui_2m"
             android:textSize="24sp"
             android:textColor="@color/primaryTextColor"
             android:textStyle="bold"

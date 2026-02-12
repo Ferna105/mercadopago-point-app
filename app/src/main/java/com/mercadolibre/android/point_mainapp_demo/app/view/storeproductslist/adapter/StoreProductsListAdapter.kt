@@ -1,6 +1,7 @@
 package com.mercadolibre.android.point_mainapp_demo.app.view.storeproductslist.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -34,11 +35,33 @@ class StoreProductsListAdapter(
             binding.pointMainappDemoAppProductName.text = product.name
             binding.pointMainappDemoAppProductPrice.text = "$${product.price}"
             binding.pointMainappDemoAppProductCategory.text = product.category
+            loadProductImage(product.image)
             binding.root.setOnClickListener { onItemClick(product) }
             binding.pointMainappDemoAppProductAddToCart.setOnClickListener {
                 it.isClickable = false
                 onAddToCart(product)
                 it.post { it.isClickable = true }
+            }
+        }
+
+        private fun loadProductImage(imageRef: String) {
+            val imageView = binding.pointMainappDemoAppProductImage
+            if (imageRef.isBlank()) {
+                imageView.visibility = View.GONE
+                return
+            }
+            imageView.visibility = View.VISIBLE
+            if (!imageRef.startsWith("http")) {
+                val resId = imageView.context.resources.getIdentifier(
+                    imageRef,
+                    "drawable",
+                    imageView.context.packageName
+                )
+                if (resId != 0) {
+                    imageView.setImageResource(resId)
+                } else {
+                    imageView.visibility = View.GONE
+                }
             }
         }
     }
