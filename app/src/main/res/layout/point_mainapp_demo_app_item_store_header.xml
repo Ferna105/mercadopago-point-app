@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/ui_3m"
+    android:background="@color/primaryLightColor">
+
+    <ImageView
+        android:id="@+id/point_mainapp_demo_app_store_header_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:maxHeight="160dp"
+        tools:src="@drawable/point_mainapp_demo_app_store" />
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_store_header_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_2m"
+        android:textSize="24sp"
+        android:textColor="@color/primaryTextColor"
+        android:textStyle="bold"
+        tools:text="La Luna Bar" />
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_store_header_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_1m"
+        android:textSize="18sp"
+        android:textColor="@color/primaryTextColor"
+        android:lineSpacingMultiplier="1.2"
+        tools:text="Bar y boliche con barra completa." />
+
+</LinearLayout>

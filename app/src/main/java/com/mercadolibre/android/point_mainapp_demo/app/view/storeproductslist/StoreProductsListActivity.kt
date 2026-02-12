@@ -13,6 +13,7 @@ import com.mercadolibre.android.point_mainapp_demo.app.data.dto.Product
 import com.mercadolibre.android.point_mainapp_demo.app.data.dto.Store
 import com.mercadolibre.android.point_mainapp_demo.app.databinding.PointMainappDemoAppActivityStoreProductsListBinding
 import com.mercadolibre.android.point_mainapp_demo.app.view.productdetail.ProductDetailActivity
+import com.mercadolibre.android.point_mainapp_demo.app.view.storeproductslist.adapter.StoreListBuilder
 import com.mercadolibre.android.point_mainapp_demo.app.view.storeproductslist.adapter.StoreProductsListAdapter
 
 class StoreProductsListActivity : AppCompatActivity() {
@@ -72,7 +73,6 @@ class StoreProductsListActivity : AppCompatActivity() {
         binding?.apply {
             pointMainappDemoAppStoreProductsProgress.visibility = View.VISIBLE
             pointMainappDemoAppStoreProductsRecycler.visibility = View.GONE
-            pointMainappDemoAppStoreInfoContainer.visibility = View.GONE
             pointMainappDemoAppStoreProductsError.visibility = View.GONE
         }
     }
@@ -81,43 +81,15 @@ class StoreProductsListActivity : AppCompatActivity() {
         binding?.apply {
             pointMainappDemoAppStoreProductsProgress.visibility = View.GONE
             pointMainappDemoAppStoreProductsError.visibility = View.GONE
-            pointMainappDemoAppStoreInfoContainer.visibility = View.VISIBLE
             pointMainappDemoAppStoreProductsRecycler.visibility = View.VISIBLE
-            pointMainappDemoAppStoreInfoName.text = store.name
-            pointMainappDemoAppStoreInfoDescription.text = store.description
-            loadStoreImage(store.image)
         }
-        adapter.submitList(products)
-    }
-
-    private fun loadStoreImage(imageRef: String) {
-        val imageView = binding?.pointMainappDemoAppStoreInfoImage ?: return
-        if (imageRef.isBlank()) {
-            imageView.visibility = View.GONE
-            return
-        }
-        imageView.visibility = View.VISIBLE
-        when {
-            imageRef.startsWith("http") -> {
-                // Si en el futuro el mock devuelve una URL, aquí se podría usar Coil/Glide
-                imageView.visibility = View.GONE
-            }
-            else -> {
-                val resId = resources.getIdentifier(imageRef, "drawable", packageName)
-                if (resId != 0) {
-                    imageView.setImageResource(resId)
-                } else {
-                    imageView.visibility = View.GONE
-                }
-            }
-        }
+        adapter.submitList(StoreListBuilder.buildList(store, products))
     }
 
     private fun showError(message: String) {
         binding?.apply {
             pointMainappDemoAppStoreProductsProgress.visibility = View.GONE
             pointMainappDemoAppStoreProductsRecycler.visibility = View.GONE
-            pointMainappDemoAppStoreInfoContainer.visibility = View.GONE
             pointMainappDemoAppStoreProductsError.visibility = View.VISIBLE
             pointMainappDemoAppStoreProductsError.text = message
         }

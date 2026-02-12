@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/point_mainapp_demo_app_category_header_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/ui_3m"
+    android:paddingTop="@dimen/ui_2m"
+    android:paddingBottom="@dimen/ui_1m"
+    android:textSize="18sp"
+    android:textColor="@color/primaryTextColor"
+    android:textStyle="bold"
+    android:background="@color/primaryLightColor"
+    tools:text="Bebidas con alcohol" />
