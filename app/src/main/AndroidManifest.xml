@@ -68,11 +68,11 @@
             android:exported="false" />
 
         <meta-data android:name="com.mercadolibre.android.sdk.PLATFORM_ID"
-            android:value="dev-main-test-app-demo" />
+            android:value="barrita-app" />
 
         <meta-data
             android:name="com.mercadolibre.android.sdk.CLIENT_ID"
-            android:value="193213529837179L" />
+            android:value="5584031284184747" />
         <meta-data
             android:name="com.mercadolibre.android.sdk.OAUTH_ENABLED"
             android:value="true" />

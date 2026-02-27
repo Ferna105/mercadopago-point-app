@@ -22,6 +22,6 @@ class MainApplication : Application() {
     }
 
     companion object {
-        private const val DEMO_APP_CLIENT_ID = "193213529837179"
+        private const val DEMO_APP_CLIENT_ID = "5584031284184747"
     }
 }
