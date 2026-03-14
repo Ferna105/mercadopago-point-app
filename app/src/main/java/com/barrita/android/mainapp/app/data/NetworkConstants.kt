@@ -9,6 +9,8 @@ object NetworkConstants {
     const val REFRESH_PATH = "auth/refresh"
     const val STORES_PATH = "stores"
     const val PRODUCTS_PATH = "admin/products"
+    /** GET store products (menu API). Path: menu/stores/{id}/products */
+    const val STORE_PRODUCTS_PATH = "menu/stores/{id}/products"
 
     const val READ_TIMEOUT = 15L
     const val CONNECTION_TIMEOUT = 15L
