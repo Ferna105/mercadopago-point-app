@@ -8,6 +8,7 @@ object NetworkConstants {
     const val LOGIN_PATH = "auth/login"
     const val REFRESH_PATH = "auth/refresh"
     const val STORES_PATH = "stores"
+    const val PRODUCTS_PATH = "admin/products"
 
     const val READ_TIMEOUT = 15L
     const val CONNECTION_TIMEOUT = 15L

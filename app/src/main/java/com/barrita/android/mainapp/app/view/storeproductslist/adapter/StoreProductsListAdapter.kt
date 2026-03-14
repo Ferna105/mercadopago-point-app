@@ -97,8 +97,8 @@ class StoreProductsListAdapter(
         fun bind(product: Product) {
             binding.pointMainappDemoAppProductName.text = product.name
             binding.pointMainappDemoAppProductPrice.text = "$${product.price}"
-            binding.pointMainappDemoAppProductCategory.text = product.category
-            loadProductImage(product.image)
+            binding.pointMainappDemoAppProductCategory.text = product.description ?: ""
+            loadProductImage(product.imageUrl)
             binding.root.setOnClickListener { onItemClick(product) }
             binding.pointMainappDemoAppProductAddToCart.setOnClickListener {
                 it.isClickable = false
@@ -107,9 +107,9 @@ class StoreProductsListAdapter(
             }
         }
 
-        private fun loadProductImage(imageRef: String) {
+        private fun loadProductImage(imageRef: String?) {
             val imageView = binding.pointMainappDemoAppProductImage
-            if (imageRef.isBlank()) {
+            if (imageRef.isNullOrBlank()) {
                 imageView.visibility = View.GONE
                 return
             }
@@ -152,10 +152,9 @@ object StoreListBuilder {
     fun buildList(store: Store, products: List<Product>): List<StoreListItem> {
         val list = mutableListOf<StoreListItem>()
         list.add(StoreListItem.StoreHeader(store))
-        val byCategory = products.groupBy { it.category }
-        byCategory.keys.sorted().forEach { category ->
-            list.add(StoreListItem.CategoryHeader(category))
-            byCategory[category]?.forEach { product ->
+        if (products.isNotEmpty()) {
+            list.add(StoreListItem.CategoryHeader("Productos"))
+            products.forEach { product ->
                 list.add(StoreListItem.ProductItem(product))
             }
         }

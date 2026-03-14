@@ -52,9 +52,9 @@ class ProductDetailActivity : AppCompatActivity() {
             pointMainappDemoAppProductDetailName.text = product.name
             pointMainappDemoAppProductDetailId.text = getString(R.string.point_mainapp_demo_app_product_detail_id_format, product.id)
             pointMainappDemoAppProductDetailPrice.text = "$${product.price}"
-            pointMainappDemoAppProductDetailCategory.text = getString(R.string.point_mainapp_demo_app_product_detail_category_format, product.category)
-            pointMainappDemoAppProductDetailStore.text = getString(R.string.point_mainapp_demo_app_product_detail_store_format, product.storeName)
-            pointMainappDemoAppProductDetailDescription.text = product.description
+            pointMainappDemoAppProductDetailCategory.text = getString(R.string.point_mainapp_demo_app_product_detail_category_format, "-")
+            pointMainappDemoAppProductDetailStore.text = getString(R.string.point_mainapp_demo_app_product_detail_store_format, product.storeId ?: "-")
+            pointMainappDemoAppProductDetailDescription.text = product.description ?: ""
             pointMainappDemoAppProductDetailActive.text = getString(
                 R.string.point_mainapp_demo_app_product_detail_active_format,
                 if (product.isActive) getString(R.string.point_mainapp_demo_app_yes) else getString(R.string.point_mainapp_demo_app_no)

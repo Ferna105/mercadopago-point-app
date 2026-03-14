@@ -7,11 +7,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.barrita.android.mainapp.app.cart.CartActivity
 import com.barrita.android.mainapp.app.cart.CartRepository
+import com.barrita.android.mainapp.app.data.SessionManager
 import com.barrita.android.mainapp.app.data.dto.Product
 import com.barrita.android.mainapp.app.data.dto.Store
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppActivityStoreProductsListBinding
+import com.barrita.android.mainapp.app.view.login.LoginActivity
 import com.barrita.android.mainapp.app.view.productdetail.ProductDetailActivity
 import com.barrita.android.mainapp.app.view.storeproductslist.adapter.StoreListBuilder
 import com.barrita.android.mainapp.app.view.storeproductslist.adapter.StoreProductsListAdapter
@@ -39,11 +42,17 @@ class StoreProductsListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = PointMainappDemoAppActivityStoreProductsListBinding.inflate(layoutInflater)
         binding?.run { setContentView(root) }
+
         val storeId = intent.getStringExtra(EXTRA_STORE_ID) ?: DEFAULT_STORE_ID
+        val storeJson = intent.getStringExtra(EXTRA_STORE_JSON)
+        val store = storeJson?.let {
+            try { Gson().fromJson(it, Store::class.java) } catch (e: Exception) { null }
+        }
+
         setupRecyclerView()
         setupCartFab()
         setupObservers()
-        viewModel.loadProducts(storeId)
+        viewModel.loadProducts(storeId, store)
     }
 
     private fun setupCartFab() {
@@ -65,8 +74,15 @@ class StoreProductsListActivity : AppCompatActivity() {
                 is StoreProductsListState.Loading -> showLoading()
                 is StoreProductsListState.Success -> showList(state.store, state.products)
                 is StoreProductsListState.Error -> showError(state.message)
+                is StoreProductsListState.TokenExpired -> redirectToLogin()
             }
         }
+    }
+
+    private fun redirectToLogin() {
+        SessionManager.clearSession(this)
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     private fun showLoading() {
@@ -97,6 +113,7 @@ class StoreProductsListActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_STORE_ID = "extra_store_id"
+        const val EXTRA_STORE_JSON = "extra_store_json"
         private const val DEFAULT_STORE_ID = "1"
     }
 }

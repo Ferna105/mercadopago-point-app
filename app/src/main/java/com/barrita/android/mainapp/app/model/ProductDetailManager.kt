@@ -22,17 +22,10 @@ class ProductDetailManager {
         name = "Café Americano",
         description = "Café negro recién preparado. Ideal para empezar el día.",
         observacionInterna = null,
-        price = 2.50,
-        image = "",
-        images = emptyList(),
-        category = "Bebidas",
-        categoryId = 1,
-        categoryIds = listOf(1),
-        categoryNames = listOf("Bebidas"),
-        isActive = true,
-        storeName = "Store 1",
-        storeId = "1",
-        storeIds = listOf("1"),
-        storeNames = listOf("Store 1")
+        imageUrl = null,
+        listPrice = 2.50,
+        discount = null,
+        status = "active",
+        storeId = "1"
     )
 }

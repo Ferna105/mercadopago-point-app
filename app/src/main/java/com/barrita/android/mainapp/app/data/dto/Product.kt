@@ -5,18 +5,14 @@ import com.google.gson.annotations.SerializedName
 data class Product(
     @SerializedName("id") val id: String,
     @SerializedName("name") val name: String,
-    @SerializedName("description") val description: String,
+    @SerializedName("description") val description: String? = null,
     @SerializedName("observacion_interna") val observacionInterna: String? = null,
-    @SerializedName("price") val price: Double,
-    @SerializedName("image") val image: String,
-    @SerializedName("images") val images: List<String> = emptyList(),
-    @SerializedName("category") val category: String,
-    @SerializedName("categoryId") val categoryId: Int? = null,
-    @SerializedName("categoryIds") val categoryIds: List<Int>? = null,
-    @SerializedName("categoryNames") val categoryNames: List<String>? = null,
-    @SerializedName("isActive") val isActive: Boolean,
-    @SerializedName("storeName") val storeName: String,
-    @SerializedName("storeId") val storeId: String? = null,
-    @SerializedName("storeIds") val storeIds: List<String>? = null,
-    @SerializedName("storeNames") val storeNames: List<String>? = null
-)
+    @SerializedName("image_url") val imageUrl: String? = null,
+    @SerializedName("list_price") val listPrice: Double? = null,
+    @SerializedName("discount") val discount: Double? = null,
+    @SerializedName("status") val status: String? = null,
+    @SerializedName("store_id") val storeId: String? = null
+) {
+    val isActive: Boolean get() = status == "active"
+    val price: Double get() = listPrice ?: 0.0
+}

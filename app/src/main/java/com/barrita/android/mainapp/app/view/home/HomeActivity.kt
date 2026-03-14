@@ -13,6 +13,7 @@ import com.barrita.android.mainapp.app.data.SessionManager
 import com.barrita.android.mainapp.app.data.dto.RefreshRequest
 import com.barrita.android.mainapp.app.data.dto.Store
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppActivityHomeBinding
+import com.google.gson.Gson
 import com.barrita.android.mainapp.app.view.login.LoginActivity
 import com.barrita.android.mainapp.app.view.storeproductslist.StoreProductsListActivity
 import kotlinx.coroutines.launch
@@ -215,9 +216,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun navigateToStoreProducts(store: Store) {
+        val storeJson = Gson().toJson(store)
         startActivity(
             Intent(this, StoreProductsListActivity::class.java)
                 .putExtra(StoreProductsListActivity.EXTRA_STORE_ID, store.id)
+                .putExtra(StoreProductsListActivity.EXTRA_STORE_JSON, storeJson)
         )
     }
 }
