@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.barrita.android.mainapp.app.R
+import com.barrita.android.mainapp.app.util.ImageLoader
 import com.barrita.android.mainapp.app.data.dto.Product
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppActivityProductDetailBinding
 
@@ -59,6 +60,28 @@ class ProductDetailActivity : AppCompatActivity() {
                 R.string.point_mainapp_demo_app_product_detail_active_format,
                 if (product.isActive) getString(R.string.point_mainapp_demo_app_yes) else getString(R.string.point_mainapp_demo_app_no)
             )
+            loadProductImage(product.imageUrl)
+        }
+    }
+
+    private fun loadProductImage(imageRef: String?) {
+        val imageView = binding?.pointMainappDemoAppProductDetailImage ?: return
+        if (imageRef.isNullOrBlank()) {
+            imageView.visibility = View.GONE
+            return
+        }
+        imageView.visibility = View.VISIBLE
+        if (imageRef.startsWith("http")) {
+            ImageLoader.load(imageView, imageRef)
+        } else {
+            val resId = imageView.context.resources.getIdentifier(
+                imageRef, "drawable", imageView.context.packageName
+            )
+            if (resId != 0) {
+                imageView.setImageResource(resId)
+            } else {
+                imageView.visibility = View.GONE
+            }
         }
     }
 

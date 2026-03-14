@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.barrita.android.mainapp.app.data.dto.Product
+import com.barrita.android.mainapp.app.util.ImageLoader
 import com.barrita.android.mainapp.app.data.dto.Store
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppItemCategoryHeaderBinding
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppItemProductBinding
@@ -71,7 +72,9 @@ class StoreProductsListAdapter(
                 return
             }
             imageView.visibility = View.VISIBLE
-            if (!imageRef.startsWith("http")) {
+            if (imageRef.startsWith("http")) {
+                ImageLoader.load(imageView, imageRef)
+            } else {
                 val resId = imageView.context.resources.getIdentifier(
                     imageRef, "drawable", imageView.context.packageName
                 )
@@ -114,7 +117,9 @@ class StoreProductsListAdapter(
                 return
             }
             imageView.visibility = View.VISIBLE
-            if (!imageRef.startsWith("http")) {
+            if (imageRef.startsWith("http")) {
+                ImageLoader.load(imageView, imageRef)
+            } else {
                 val resId = imageView.context.resources.getIdentifier(
                     imageRef, "drawable", imageView.context.packageName
                 )
