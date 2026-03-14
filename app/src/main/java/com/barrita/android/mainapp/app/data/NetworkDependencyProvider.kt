@@ -25,7 +25,15 @@ object NetworkDependencyProvider {
 
     private val mpApiClient: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(NetworkConstants.BASE_URL)
+            .baseUrl(NetworkConstants.MP_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(converterFactory)
+            .build()
+    }
+
+    private val barritaApiClient: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(NetworkConstants.BARRITA_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .build()
@@ -33,4 +41,7 @@ object NetworkDependencyProvider {
 
     val refundsService: RefundsService =
         mpApiClient.create(RefundsService::class.java)
+
+    val authService: AuthService =
+        barritaApiClient.create(AuthService::class.java)
 }
