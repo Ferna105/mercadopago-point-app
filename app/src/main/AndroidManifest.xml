@@ -49,6 +49,9 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".view.home.MyStoresActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.bluetooth.BluetoothTestActivity"
             android:exported="false" />
         <activity

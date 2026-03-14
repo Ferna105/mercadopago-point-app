@@ -5,16 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor">
+    android:background="@color/primaryLightColor"
+    android:padding="@dimen/ui_3m">
 
     <TextView
         android:id="@+id/point_mainapp_demo_app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_3m"
-        android:text="@string/point_mainapp_demo_app_home_stores_title"
-        android:textSize="24sp"
+        android:layout_marginTop="@dimen/ui_5m"
+        android:text="@string/point_mainapp_demo_app_title"
+        android:textSize="28sp"
         android:textStyle="bold"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,6 +25,7 @@
         android:id="@+id/point_mainapp_demo_app_user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_2m"
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
         tools:text="usuario@email.com"
@@ -30,54 +33,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_title" />
 
-    <ProgressBar
-        android:id="@+id/point_mainapp_demo_app_progress"
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/point_mainapp_demo_app_btn_my_stores"
+        style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonPrimary"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/ui_5m"
+        android:text="@string/point_mainapp_demo_app_home_btn_my_stores"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_user_email" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/point_mainapp_demo_app_stores_recycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_user_email"
-        tools:listitem="@layout/point_mainapp_demo_app_item_store"
-        tools:itemCount="3" />
-
-    <TextView
-        android:id="@+id/point_mainapp_demo_app_empty_message"
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/point_mainapp_demo_app_btn_logout"
+        style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonSecondary"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/point_mainapp_demo_app_home_no_stores"
-        android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/ui_2m"
+        android:text="@string/point_mainapp_demo_app_home_btn_logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_user_email" />
-
-    <TextView
-        android:id="@+id/point_mainapp_demo_app_error_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/holo_red_dark"
-        android:visibility="gone"
-        tools:text="Error al cargar tiendas"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_user_email" />
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_btn_my_stores" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryLightColor">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/point_mainapp_demo_app_my_stores_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/dark_grey"
+        app:title="@string/point_mainapp_demo_app_home_stores_title"
+        app:titleTextColor="@color/primaryTextColor"
+        app:navigationIcon="@drawable/point_mainapp_demo_app_white_arrow_back"
+        app:navigationIconTint="@color/primaryTextColor"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_my_stores_user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_2m"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        tools:text="usuario@email.com"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_toolbar" />
+
+    <ProgressBar
+        android:id="@+id/point_mainapp_demo_app_my_stores_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_user_email" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/point_mainapp_demo_app_my_stores_recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_user_email"
+        tools:listitem="@layout/point_mainapp_demo_app_item_store"
+        tools:itemCount="3" />
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_my_stores_empty_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/point_mainapp_demo_app_home_no_stores"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_user_email" />
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_my_stores_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        tools:text="Error al cargar tiendas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_user_email" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -84,16 +84,6 @@
         android:text="@string/point_mainapp_demo_app_login_button"
         app:cornerRadius="@dimen/ui_1_25m" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/point_mainapp_demo_app_login_mercado_pago"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_2m"
-        android:text="@string/point_mainapp_demo_app_login_mercado_pago"
-        android:textColor="@android:color/white"
-        app:backgroundTint="@color/mercado_pago_blue"
-        app:cornerRadius="@dimen/ui_1_25m" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

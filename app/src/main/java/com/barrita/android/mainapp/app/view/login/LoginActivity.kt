@@ -30,13 +30,6 @@ class LoginActivity : AppCompatActivity() {
         binding = PointMainappDemoAppActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setupLoginButton()
-        setupMercadoPagoButton()
-    }
-
-    private fun setupMercadoPagoButton() {
-        binding?.pointMainappDemoAppLoginMercadoPago?.setOnClickListener {
-            navigateToHome()
-        }
     }
 
     private fun setupLoginButton() {
