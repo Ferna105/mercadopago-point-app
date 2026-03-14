@@ -44,4 +44,7 @@ object NetworkDependencyProvider {
 
     val authService: AuthService =
         barritaApiClient.create(AuthService::class.java)
+
+    val storesService: StoresService =
+        barritaApiClient.create(StoresService::class.java)
 }

@@ -6,6 +6,8 @@ object NetworkConstants {
 
     const val BARRITA_BASE_URL = "https://api.barrita.app/"
     const val LOGIN_PATH = "auth/login"
+    const val REFRESH_PATH = "auth/refresh"
+    const val STORES_PATH = "stores"
 
     const val READ_TIMEOUT = 15L
     const val CONNECTION_TIMEOUT = 15L

@@ -54,6 +54,14 @@ object SessionManager {
         return getAccessToken(context) != null
     }
 
+    fun updateTokens(context: Context, accessToken: String, refreshToken: String) {
+        getPrefs(context).edit().apply {
+            putString(KEY_ACCESS_TOKEN, accessToken)
+            putString(KEY_REFRESH_TOKEN, refreshToken)
+            apply()
+        }
+    }
+
     fun clearSession(context: Context) {
         getPrefs(context).edit().clear().apply()
     }

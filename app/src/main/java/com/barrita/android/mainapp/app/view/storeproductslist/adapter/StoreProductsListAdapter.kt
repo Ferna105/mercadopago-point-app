@@ -60,13 +60,13 @@ class StoreProductsListAdapter(
 
         fun bind(store: Store) {
             binding.pointMainappDemoAppStoreHeaderName.text = store.name
-            binding.pointMainappDemoAppStoreHeaderDescription.text = store.description
-            loadStoreImage(store.image)
+            binding.pointMainappDemoAppStoreHeaderDescription.text = store.description ?: ""
+            loadStoreImage(store.logoUrl)
         }
 
-        private fun loadStoreImage(imageRef: String) {
+        private fun loadStoreImage(imageRef: String?) {
             val imageView = binding.pointMainappDemoAppStoreHeaderImage
-            if (imageRef.isBlank()) {
+            if (imageRef.isNullOrBlank()) {
                 imageView.visibility = View.GONE
                 return
             }

@@ -1,6 +1,11 @@
 <resources>
     <string name="point_mainapp_demo_app_name">Barrita</string>
 
+    <!-- Home -->
+    <string name="point_mainapp_demo_app_home_stores_title">Mis Tiendas</string>
+    <string name="point_mainapp_demo_app_home_no_stores">No tienes tiendas configuradas</string>
+    <string name="point_mainapp_demo_app_home_error">Error al cargar las tiendas</string>
+
     <!-- Login -->
     <string name="point_mainapp_demo_app_login_title">Iniciar sesión</string>
     <string name="point_mainapp_demo_app_login_username_hint">Usuario</string>

@@ -25,12 +25,13 @@ class StoreProductsListManager {
         id = storeId,
         name = "La Luna Bar",
         description = "Bar y boliche con barra completa, música en vivo los fines de semana y patio exterior.",
-        image = "point_mainapp_demo_app_store",
+        logoUrl = "point_mainapp_demo_app_store",
         bannerUrl = null,
+        slug = "la-luna-bar",
+        phone = null,
+        address = null,
         schedule = "Jue a Dom 22:00 - 06:00",
-        paymentMethod = "Efectivo, tarjetas y transferencia",
         paymentMethodId = null,
-        productsCount = 10,
         status = "active"
     )
 
