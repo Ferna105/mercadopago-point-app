@@ -1,6 +1,5 @@
 package com.barrita.android.mainapp.app.cart
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -9,9 +8,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.barrita.android.mainapp.app.R
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppActivityCartBinding
-import com.barrita.android.mainapp.app.view.payment.launcher.PaymentLauncherActivity
+import com.google.android.material.snackbar.Snackbar
+import com.mercadolibre.android.point_integration_sdk.nativesdk.MPManager
+import com.mercadolibre.android.point_integration_sdk.nativesdk.message.utils.doIfError
+import com.mercadolibre.android.point_integration_sdk.nativesdk.message.utils.doIfSuccess
+import com.mercadolibre.android.point_integration_sdk.nativesdk.payment.data.PaymentFlowRequestData
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class CartActivity : AppCompatActivity() {
 
@@ -22,6 +26,11 @@ class CartActivity : AppCompatActivity() {
         onSubtractQuantity = { viewModel.subtractQuantity(it) },
         onRemove = { viewModel.removeItem(it) }
     )
+
+    private val storeName: String
+        get() = intent.getStringExtra(EXTRA_STORE_NAME) ?: "Tienda"
+
+    private val paymentFlow = MPManager.paymentFlow
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +44,30 @@ class CartActivity : AppCompatActivity() {
 
     private fun setupGoToPayButton() {
         binding?.pointMainappDemoAppCartGoToPay?.setOnClickListener {
-            val amount = viewModel.totalAmount
-            startActivity(
-                Intent(this, PaymentLauncherActivity::class.java).apply {
-                    putExtra(PaymentLauncherActivity.EXTRA_PREFILL_AMOUNT, String.format("%.2f", amount))
+            val total = viewModel.totalAmount
+            val amountStr = String.format(Locale.US, "%.2f", total)
+            val description = getString(R.string.point_mainapp_demo_app_cart_payment_description, storeName)
+            binding?.pointMainappDemoAppCartGoToPay?.isEnabled = false
+            paymentFlow.launchPaymentFlow(
+                PaymentFlowRequestData(
+                    amount = amountStr.toDouble(),
+                    description = description,
+                    paymentMethod = null,
+                    printOnTerminal = true,
+                    taxes = null
+                )
+            ) { response ->
+                binding?.pointMainappDemoAppCartGoToPay?.isEnabled = true
+                response.doIfSuccess {
+                    binding?.root?.let { root ->
+                        Snackbar.make(root, getString(R.string.point_mainapp_demo_app_payment_success_ref, it.paymentReference), Snackbar.LENGTH_LONG).show()
+                    }
+                }.doIfError {
+                    binding?.root?.let { root ->
+                        Snackbar.make(root, it.message ?: getString(R.string.point_mainapp_demo_app_payment_error), Snackbar.LENGTH_LONG).show()
+                    }
                 }
-            )
+            }
         }
     }
 
@@ -72,11 +99,15 @@ class CartActivity : AppCompatActivity() {
                         pointMainappDemoAppCartTotalContainer.visibility = View.VISIBLE
                         pointMainappDemoAppCartGoToPay.visibility = View.VISIBLE
                         pointMainappDemoAppCartTotalLabel.text =
-                            getString(R.string.point_mainapp_demo_app_cart_total, String.format("$%.2f", viewModel.totalAmount))
+                            getString(R.string.point_mainapp_demo_app_cart_total, String.format(Locale.US, "$%.2f", viewModel.totalAmount))
                     }
                     adapter.submitList(items)
                 }
             }
         }
+    }
+
+    companion object {
+        const val EXTRA_STORE_NAME = "extra_store_name"
     }
 }

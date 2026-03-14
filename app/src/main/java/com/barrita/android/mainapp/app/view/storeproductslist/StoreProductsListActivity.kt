@@ -57,7 +57,10 @@ class StoreProductsListActivity : AppCompatActivity() {
 
     private fun setupCartFab() {
         binding?.pointMainappDemoAppStoreProductsCartFab?.setOnClickListener {
-            startActivity(Intent(this, CartActivity::class.java))
+            val storeName = (viewModel.state.value as? StoreProductsListState.Success)?.store?.name ?: "Tienda"
+            startActivity(
+                Intent(this, CartActivity::class.java).putExtra(CartActivity.EXTRA_STORE_NAME, storeName)
+            )
         }
     }
 
