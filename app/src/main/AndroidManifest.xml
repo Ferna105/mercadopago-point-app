@@ -75,7 +75,7 @@
 
         <meta-data
             android:name="com.mercadolibre.android.sdk.CLIENT_ID"
-            android:value="5584031284184747" />
+            android:value="2013850760187791L" />
         <meta-data
             android:name="com.mercadolibre.android.sdk.OAUTH_ENABLED"
             android:value="true" />
