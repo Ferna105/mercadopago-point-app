@@ -23,6 +23,7 @@ class StoreProductsListActivity : AppCompatActivity() {
 
     private var binding: PointMainappDemoAppActivityStoreProductsListBinding? = null
     private val viewModel: StoreProductsListViewModel by viewModels()
+    private var currentStoreId: String = DEFAULT_STORE_ID
     private val adapter = StoreProductsListAdapter(
         onItemClick = { product ->
             startActivity(
@@ -44,6 +45,7 @@ class StoreProductsListActivity : AppCompatActivity() {
         binding?.run { setContentView(root) }
 
         val storeId = intent.getStringExtra(EXTRA_STORE_ID) ?: DEFAULT_STORE_ID
+        currentStoreId = storeId
         val storeJson = intent.getStringExtra(EXTRA_STORE_JSON)
         val store = storeJson?.let {
             try { Gson().fromJson(it, Store::class.java) } catch (e: Exception) { null }
@@ -59,7 +61,9 @@ class StoreProductsListActivity : AppCompatActivity() {
         binding?.pointMainappDemoAppStoreProductsCartFab?.setOnClickListener {
             val storeName = (viewModel.state.value as? StoreProductsListState.Success)?.store?.name ?: "Tienda"
             startActivity(
-                Intent(this, CartActivity::class.java).putExtra(CartActivity.EXTRA_STORE_NAME, storeName)
+                Intent(this, CartActivity::class.java)
+                    .putExtra(CartActivity.EXTRA_STORE_NAME, storeName)
+                    .putExtra(CartActivity.EXTRA_STORE_ID, currentStoreId)
             )
         }
     }

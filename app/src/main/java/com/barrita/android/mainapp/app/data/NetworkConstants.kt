@@ -11,6 +11,8 @@ object NetworkConstants {
     const val PRODUCTS_PATH = "admin/products"
     /** GET store products (menu API). Path: menu/stores/{id}/products */
     const val STORE_PRODUCTS_PATH = "menu/stores/{id}/products"
+    const val MENU_ORDERS_PATH = "menu/orders"
+    const val PAYMENT_CONFIRM_PATH = "payment-confirmation/confirm"
 
     const val READ_TIMEOUT = 15L
     const val CONNECTION_TIMEOUT = 15L
