@@ -1,9 +1,9 @@
 package com.barrita.android.mainapp.app.view.storeproductslist
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.barrita.android.mainapp.app.data.NetworkDependencyProvider
@@ -21,10 +21,40 @@ sealed class StoreProductsListState {
     object TokenExpired : StoreProductsListState()
 }
 
+data class ProductsUiState(
+    val store: Store? = null,
+    val allProducts: List<Product> = emptyList(),
+    val filteredProducts: List<Product> = emptyList(),
+    val allCategoryNames: List<String> = emptyList(),
+    val searchQuery: String = "",
+    val selectedCategory: String? = null,
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null,
+    val tokenExpired: Boolean = false
+)
+
 class StoreProductsListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _state = MutableLiveData<StoreProductsListState>()
     val state: LiveData<StoreProductsListState> get() = _state
+
+    private val _searchQuery = MutableLiveData("")
+    val searchQuery: LiveData<String> get() = _searchQuery
+
+    private val _selectedCategory = MutableLiveData<String?>(null)
+    val selectedCategory: LiveData<String?> get() = _selectedCategory
+
+    private val _allCategoryNames = MutableLiveData<List<String>>(emptyList())
+    val allCategoryNames: LiveData<List<String>> get() = _allCategoryNames
+
+    private var allProducts: List<Product> = emptyList()
+
+    private val _filteredProducts = MediatorLiveData<List<Product>>().apply {
+        addSource(_state) { refilter() }
+        addSource(_searchQuery) { refilter() }
+        addSource(_selectedCategory) { refilter() }
+    }
+    val filteredProducts: LiveData<List<Product>> get() = _filteredProducts
 
     private val productsService = NetworkDependencyProvider.productsService
     private val authService = NetworkDependencyProvider.authService
@@ -46,44 +76,65 @@ class StoreProductsListViewModel(application: Application) : AndroidViewModel(ap
         fetchProducts(accessToken, isRetry = false)
     }
 
+    fun setSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
+    fun setSelectedCategory(category: String?) {
+        _selectedCategory.value = category
+    }
+
+    private fun refilter() {
+        val query = _searchQuery.value.orEmpty().trim().lowercase()
+        val category = _selectedCategory.value
+
+        var result = allProducts
+
+        if (query.isNotEmpty()) {
+            result = result.filter { p ->
+                p.name.lowercase().contains(query) ||
+                    (p.description?.lowercase()?.contains(query) == true)
+            }
+        }
+
+        if (category != null) {
+            result = result.filter { p ->
+                p.resolvedCategories.contains(category)
+            }
+        }
+
+        _filteredProducts.value = result
+    }
+
+    private fun extractCategories(products: List<Product>): List<String> {
+        val names = mutableSetOf<String>()
+        products.forEach { p ->
+            p.resolvedCategories.forEach { names.add(it) }
+        }
+        return names.sorted()
+    }
+
     private fun fetchProducts(accessToken: String, isRetry: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                // #region agent log
-                Log.d("DEBUG_0b902f", "[PRODUCTS] Fetching products for storeId=$currentStoreId, isRetry=$isRetry")
-                // #endregion
                 val response = productsService.getProducts("Bearer $accessToken", currentStoreId)
-                // #region agent log
-                Log.d("DEBUG_0b902f", "[PRODUCTS] Response code=${response.code()}, isSuccessful=${response.isSuccessful}")
-                // #endregion
 
                 when {
                     response.isSuccessful -> {
                         val products = response.body()?.data ?: emptyList()
-                        // #region agent log
-                        Log.d("DEBUG_0b902f", "[PRODUCTS] SUCCESS: Loaded ${products.size} products")
-                        // #endregion
+                        allProducts = products
                         val store = currentStore ?: createDefaultStore()
+                        _allCategoryNames.postValue(extractCategories(products))
                         _state.postValue(StoreProductsListState.Success(store, products))
                     }
                     response.code() == 401 && !isRetry -> {
-                        // #region agent log
-                        Log.d("DEBUG_0b902f", "[PRODUCTS] Got 401, attempting token refresh...")
-                        // #endregion
                         tryRefreshToken()
                     }
                     else -> {
-                        // #region agent log
-                        val errorBody = response.errorBody()?.string()
-                        Log.d("DEBUG_0b902f", "[PRODUCTS] HTTP error ${response.code()}, errorBody=$errorBody")
-                        // #endregion
                         _state.postValue(StoreProductsListState.Error("Error al cargar productos"))
                     }
                 }
             } catch (e: Exception) {
-                // #region agent log
-                Log.d("DEBUG_0b902f", "[PRODUCTS] EXCEPTION: ${e.javaClass.simpleName}: ${e.message}")
-                // #endregion
                 _state.postValue(StoreProductsListState.Error(e.message ?: "Error desconocido"))
             }
         }
@@ -92,17 +143,11 @@ class StoreProductsListViewModel(application: Application) : AndroidViewModel(ap
     private suspend fun tryRefreshToken() {
         val refreshToken = SessionManager.getRefreshToken(getApplication())
         if (refreshToken == null) {
-            // #region agent log
-            Log.d("DEBUG_0b902f", "[PRODUCTS] No refresh token, emitting TokenExpired")
-            // #endregion
             _state.postValue(StoreProductsListState.TokenExpired)
             return
         }
 
         try {
-            // #region agent log
-            Log.d("DEBUG_0b902f", "[PRODUCTS] Calling refresh endpoint...")
-            // #endregion
             val response = authService.refreshToken(RefreshRequest(refreshToken))
 
             if (response.isSuccessful) {
@@ -111,24 +156,15 @@ class StoreProductsListViewModel(application: Application) : AndroidViewModel(ap
                 val newRefreshToken = body?.refreshToken
 
                 if (newAccessToken != null && newRefreshToken != null) {
-                    // #region agent log
-                    Log.d("DEBUG_0b902f", "[PRODUCTS] Refresh SUCCESS, retrying products request")
-                    // #endregion
                     SessionManager.updateTokens(getApplication(), newAccessToken, newRefreshToken)
                     fetchProducts(newAccessToken, isRetry = true)
                 } else {
                     _state.postValue(StoreProductsListState.TokenExpired)
                 }
             } else {
-                // #region agent log
-                Log.d("DEBUG_0b902f", "[PRODUCTS] Refresh FAILED: HTTP ${response.code()}")
-                // #endregion
                 _state.postValue(StoreProductsListState.TokenExpired)
             }
         } catch (e: Exception) {
-            // #region agent log
-            Log.d("DEBUG_0b902f", "[PRODUCTS] Refresh EXCEPTION: ${e.message}")
-            // #endregion
             _state.postValue(StoreProductsListState.TokenExpired)
         }
     }

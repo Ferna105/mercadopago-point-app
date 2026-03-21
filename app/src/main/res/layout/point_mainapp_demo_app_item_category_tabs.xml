@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/barrita_card_bg">
+
+    <!-- Search bar -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="10dp">
+
+        <EditText
+            android:id="@+id/point_mainapp_demo_app_tab_search_input"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@drawable/point_mainapp_demo_app_search_bg"
+            android:drawableStart="@drawable/point_mainapp_demo_app_ic_search"
+            android:drawablePadding="10dp"
+            android:hint="@string/point_mainapp_demo_app_search_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="40dp"
+            android:textColor="@color/barrita_text_primary"
+            android:textColorHint="@color/barrita_text_placeholder"
+            android:textSize="14sp"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <ImageButton
+            android:id="@+id/point_mainapp_demo_app_tab_search_clear"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/point_mainapp_demo_app_clear_label"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </FrameLayout>
+
+    <!-- Category tabs -->
+    <HorizontalScrollView
+        android:id="@+id/point_mainapp_demo_app_tab_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:scrollbars="none"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/point_mainapp_demo_app_tab_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            tools:ignore="RtlSymmetry" />
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/point_mainapp_demo_app_tab_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/barrita_border"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</LinearLayout>

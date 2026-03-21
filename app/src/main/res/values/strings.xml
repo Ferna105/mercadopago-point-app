@@ -112,6 +112,23 @@
     <string name="point_mainapp_demo_app_yes">Sí</string>
     <string name="point_mainapp_demo_app_no">No</string>
 
+    <!-- Search / filters -->
+    <string name="point_mainapp_demo_app_search_hint">Buscar en el menú…</string>
+    <string name="point_mainapp_demo_app_category_all">Todo</string>
+    <string name="point_mainapp_demo_app_empty_no_products">No hay productos disponibles</string>
+    <string name="point_mainapp_demo_app_empty_no_products_sub">Esta tienda aún no tiene productos en su menú</string>
+    <string name="point_mainapp_demo_app_empty_no_results">No se encontraron productos</string>
+    <string name="point_mainapp_demo_app_empty_no_results_for">No se encontraron productos para \"%s\"</string>
+    <string name="point_mainapp_demo_app_category_count">%d productos</string>
+    <string name="point_mainapp_demo_app_category_count_one">1 producto</string>
+    <string name="point_mainapp_demo_app_store_closed">Tienda cerrada</string>
+    <string name="point_mainapp_demo_app_store_closed_hours">Horario de hoy: %s</string>
+    <string name="point_mainapp_demo_app_store_open">Abierta ahora</string>
+    <string name="point_mainapp_demo_app_cart_view_order">Ver pedido</string>
+    <string name="point_mainapp_demo_app_cart_clear">Vaciar carrito</string>
+    <string name="point_mainapp_demo_app_cart_clear_confirm">¿Deseas vaciar el carrito?</string>
+    <string name="point_mainapp_demo_app_cart_clear_yes">Sí, vaciar</string>
+
     <!-- Smart info -->
     <string name="point_mainapp_demo_app_smart_info_main_title">Smart info</string>
     <string name="point_mainapp_demo_app_serial_number_text">Serial number: %s</string>

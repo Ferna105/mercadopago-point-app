@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
-    <!-- Barrita tema público (menu): fondos claros, texto oscuro, acento rojo -->
-    <!-- Fondo de pantalla = gray-50 -->
-    <color name="primaryLightColor">#F9FAFB</color>
-    <!-- Acento / CTAs = red-500 -->
-    <color name="primaryColor">#EF4444</color>
-    <color name="primaryDarkColor">#DC2626</color>
-    <color name="secondaryColor">#EF4444</color>
-    <color name="secondaryLightColor">#FEE2E2</color>
-    <color name="secondaryDarkColor">#DC2626</color>
-    <!-- Texto sobre fondos claros = gray-900 / gray-600 -->
-    <color name="primaryTextColor">#111827</color>
-    <color name="secondaryTextColor">#4B5563</color>
-    <!-- Grises -->
-    <color name="grayLight">#6B7280</color>
-    <color name="grayDark">#4B5563</color>
-    <color name="gray_200">#E5E7EB</color>
-    <!-- Superficies: cards = white, bordes = gray-200 -->
+    <!-- Barrita paleta alineada a la web (teal) -->
+    <color name="primaryLightColor">#F8F7F5</color>
+    <color name="primaryColor">#0C6C6B</color>
+    <color name="primaryDarkColor">#095A59</color>
+    <color name="secondaryColor">#0C6C6B</color>
+    <color name="secondaryLightColor">#D4F4F3</color>
+    <color name="secondaryDarkColor">#095A59</color>
+
+    <!-- Texto -->
+    <color name="primaryTextColor">#201E1B</color>
+    <color name="secondaryTextColor">#7C7873</color>
+
+    <!-- Grises de la web -->
+    <color name="grayLight">#A39E97</color>
+    <color name="grayDark">#7C7873</color>
+    <color name="gray_200">#EFEDE9</color>
+
+    <!-- Superficies -->
     <color name="dark_grey">#FFFFFF</color>
     <color name="doneColor">#45C246</color>
-    <!-- Botón Mercado Pago (celeste) -->
     <color name="mercado_pago_blue">#24A6F2</color>
+
+    <!-- Barrita tokens extras -->
+    <color name="barrita_background">#F8F7F5</color>
+    <color name="barrita_teal">#0C6C6B</color>
+    <color name="barrita_teal_light">#9AD4D2</color>
+    <color name="barrita_teal_lighter">#C6EAE9</color>
+    <color name="barrita_text_primary">#201E1B</color>
+    <color name="barrita_text_secondary">#7C7873</color>
+    <color name="barrita_text_muted">#A39E97</color>
+    <color name="barrita_text_placeholder">#C4BFB8</color>
+    <color name="barrita_border">#EFEDE9</color>
+    <color name="barrita_card_bg">#FFFFFF</color>
+    <color name="barrita_gradient_start">#9AD4D2</color>
+    <color name="barrita_gradient_end">#C6EAE9</color>
+    <color name="barrita_amber_bg">#FFFBEB</color>
+    <color name="barrita_amber_border">#FDE68A</color>
+    <color name="barrita_amber_text">#92400E</color>
+    <color name="barrita_amber_icon">#D97706</color>
+    <color name="barrita_teal_badge_bg">#D4F4F3</color>
+    <color name="barrita_yellow">#FCD770</color>
+    <color name="barrita_white_20">#33FFFFFF</color>
 </resources>

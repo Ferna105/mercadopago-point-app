@@ -1,40 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/ui_3m"
-    android:background="@color/primaryLightColor">
+    android:background="@color/barrita_background">
 
+    <!-- Gradient banner -->
+    <View
+        android:id="@+id/point_mainapp_demo_app_store_header_gradient"
+        android:layout_width="0dp"
+        android:layout_height="130dp"
+        android:background="@drawable/point_mainapp_demo_app_store_header_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Badge "Abierta ahora" -->
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_store_header_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/point_mainapp_demo_app_badge_background"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp"
+        android:text="@string/point_mainapp_demo_app_store_open"
+        android:textColor="@color/barrita_teal"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <!-- White info block -->
+    <LinearLayout
+        android:id="@+id/point_mainapp_demo_app_store_header_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/barrita_card_bg"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="44dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_store_header_gradient">
+
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_store_header_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:letterSpacing="-0.02"
+            android:textColor="@color/barrita_text_primary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            tools:text="La Luna Bar" />
+
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_store_header_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:lineSpacingMultiplier="1.3"
+            android:textColor="@color/barrita_text_secondary"
+            android:textSize="13sp"
+            tools:text="Bar y boliche con barra completa." />
+
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_store_header_meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/barrita_text_muted"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="Mercado Pago" />
+    </LinearLayout>
+
+    <!-- Avatar / logo: sits on the boundary between gradient and white block -->
     <ImageView
         android:id="@+id/point_mainapp_demo_app_store_header_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/point_mainapp_demo_app_avatar_bg"
+        android:clipToOutline="true"
         android:contentDescription="@null"
-        android:scaleType="fitCenter"
-        android:maxHeight="160dp"
+        android:elevation="4dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/point_mainapp_demo_app_store_header_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/point_mainapp_demo_app_store_header_info"
         tools:src="@drawable/point_mainapp_demo_app_store" />
 
+    <!-- Fallback initials (shown when no image) -->
     <TextView
-        android:id="@+id/point_mainapp_demo_app_store_header_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_2m"
-        android:textSize="24sp"
-        android:textColor="@color/primaryTextColor"
+        android:id="@+id/point_mainapp_demo_app_store_header_initials"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/point_mainapp_demo_app_avatar_teal_bg"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="13sp"
         android:textStyle="bold"
-        tools:text="La Luna Bar" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/point_mainapp_demo_app_store_header_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/point_mainapp_demo_app_store_header_info"
+        tools:text="LB"
+        tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/point_mainapp_demo_app_store_header_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_1m"
-        android:textSize="18sp"
-        android:textColor="@color/primaryTextColor"
-        android:lineSpacingMultiplier="1.2"
-        tools:text="Bar y boliche con barra completa." />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/point_mainapp_demo_app_category_header_title"
+    android:id="@+id/point_mainapp_demo_app_category_header_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/ui_3m"
-    android:paddingTop="@dimen/ui_2m"
-    android:paddingBottom="@dimen/ui_1m"
-    android:textSize="18sp"
-    android:textColor="@color/primaryTextColor"
-    android:textStyle="bold"
-    android:background="@color/primaryLightColor"
-    tools:text="Bebidas con alcohol" />
+    android:layout_height="44dp"
+    android:background="@color/barrita_background"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_category_header_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:letterSpacing="0.09"
+        android:textAllCaps="true"
+        android:textColor="@color/barrita_text_muted"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        tools:text="BEBIDAS" />
+
+    <TextView
+        android:id="@+id/point_mainapp_demo_app_category_header_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/barrita_text_placeholder"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="5 productos" />
+
+    <ImageView
+        android:id="@+id/point_mainapp_demo_app_category_header_chevron"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:contentDescription="@null"
+        android:rotation="0"
+        android:src="@android:drawable/arrow_up_float"
+        app:tint="@color/barrita_text_muted"
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
+</LinearLayout>
