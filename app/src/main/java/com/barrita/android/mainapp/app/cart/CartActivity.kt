@@ -18,7 +18,6 @@ import com.mercadolibre.android.point_integration_sdk.nativesdk.MPManager
 import com.mercadolibre.android.point_integration_sdk.nativesdk.message.utils.doIfError
 import com.mercadolibre.android.point_integration_sdk.nativesdk.message.utils.doIfSuccess
 import com.mercadolibre.android.point_integration_sdk.nativesdk.payment.data.PaymentFlowRequestData
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -44,75 +43,106 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = PointMainappDemoAppActivityCartBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        setupToolbar()
+        setupHeader()
         setupRecyclerView()
-        setupGoToPayButton()
+        setupButtons()
         observeCart()
     }
 
-    private fun setupGoToPayButton() {
-        binding?.pointMainappDemoAppCartGoToPay?.setOnClickListener {
-            val total = viewModel.totalAmount
-            val amountStr = String.format(Locale.US, "%.2f", total)
-            val description = getString(R.string.point_mainapp_demo_app_cart_payment_description, storeName)
-            binding?.pointMainappDemoAppCartGoToPay?.isEnabled = false
-            lifecycleScope.launch {
-                val createdOrderId = createOrderBeforePayment(total)
-                if (createdOrderId == null) {
-                    binding?.pointMainappDemoAppCartGoToPay?.isEnabled = true
-                    showErrorSnackBar(getString(R.string.point_mainapp_demo_app_payment_error))
-                    return@launch
-                }
+    private fun setupHeader() {
+        binding?.pointMainappDemoAppCartBack?.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+        binding?.pointMainappDemoAppCartHeaderStoreName?.text = storeName
+        binding?.pointMainappDemoAppCartHeaderInitials?.text = getInitials(storeName)
+    }
 
-                paymentFlow.launchPaymentFlow(
-                    PaymentFlowRequestData(
-                        amount = amountStr.toDouble(),
-                        description = description,
-                        paymentMethod = null,
-                        printOnTerminal = true,
-                        taxes = null
-                    )
-                ) { response ->
-                    binding?.pointMainappDemoAppCartGoToPay?.isEnabled = true
-                    response.doIfSuccess { paymentResponse ->
-                        lifecycleScope.launch {
-                            confirmPaymentResult(
-                                orderId = createdOrderId,
-                                status = "approved",
-                                paymentReference = paymentResponse.paymentReference,
-                                amount = paymentResponse.paymentAmount.toString().toDoubleOrNull() ?: total,
-                                method = paymentResponse.paymentMethod.toString(),
-                                brand = paymentResponse.paymentBrandName,
-                                lastFour = paymentResponse.paymentLastFourDigits,
-                                createdAt = PaymentConfirmationDateFormatter.toIso8601OrNull(
-                                    paymentResponse.paymentCreationDate
-                                ),
-                                tip = paymentResponse.tipAmount.toString().toDoubleOrNull()
-                            )
-                        }
-                        viewModel.clearCart()
-                        binding?.root?.let { root ->
-                            Snackbar.make(
-                                root,
-                                getString(
-                                    R.string.point_mainapp_demo_app_payment_success_ref,
-                                    paymentResponse.paymentReference
-                                ),
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
-                    }.doIfError { error ->
-                        lifecycleScope.launch {
-                            confirmPaymentResult(
-                                orderId = createdOrderId,
-                                status = "canceled",
-                                errorMessage = error.message
-                            )
-                        }
-                        showErrorSnackBar(error.message ?: getString(R.string.point_mainapp_demo_app_payment_error))
+    private fun setupRecyclerView() {
+        binding?.pointMainappDemoAppCartRecycler?.apply {
+            layoutManager = LinearLayoutManager(this@CartActivity)
+            this.adapter = this@CartActivity.adapter
+        }
+    }
+
+    private fun setupButtons() {
+        binding?.pointMainappDemoAppCartKeepChoosing?.setOnClickListener {
+            finish()
+        }
+
+        binding?.pointMainappDemoAppCartGoToPay?.setOnClickListener {
+            launchPayment()
+        }
+    }
+
+    private fun launchPayment() {
+        val total = viewModel.totalAmount
+        val description = getString(R.string.point_mainapp_demo_app_cart_payment_description, storeName)
+        binding?.pointMainappDemoAppCartGoToPay?.isEnabled = false
+        binding?.pointMainappDemoAppCartError?.visibility = View.GONE
+
+        lifecycleScope.launch {
+            val createdOrderId = createOrderBeforePayment(total)
+            if (createdOrderId == null) {
+                binding?.pointMainappDemoAppCartGoToPay?.isEnabled = true
+                showError(getString(R.string.point_mainapp_demo_app_payment_error))
+                return@launch
+            }
+
+            paymentFlow.launchPaymentFlow(
+                PaymentFlowRequestData(
+                    amount = total,
+                    description = description,
+                    paymentMethod = null,
+                    printOnTerminal = true,
+                    taxes = null
+                )
+            ) { response ->
+                binding?.pointMainappDemoAppCartGoToPay?.isEnabled = true
+                response.doIfSuccess { paymentResponse ->
+                    lifecycleScope.launch {
+                        confirmPaymentResult(
+                            orderId = createdOrderId,
+                            status = "approved",
+                            paymentReference = paymentResponse.paymentReference,
+                            amount = paymentResponse.paymentAmount.toString().toDoubleOrNull() ?: total,
+                            method = paymentResponse.paymentMethod.toString(),
+                            brand = paymentResponse.paymentBrandName,
+                            lastFour = paymentResponse.paymentLastFourDigits,
+                            createdAt = PaymentConfirmationDateFormatter.toIso8601OrNull(
+                                paymentResponse.paymentCreationDate
+                            ),
+                            tip = paymentResponse.tipAmount.toString().toDoubleOrNull()
+                        )
                     }
+                    viewModel.clearCart()
+                    binding?.root?.let { root ->
+                        Snackbar.make(
+                            root,
+                            getString(
+                                R.string.point_mainapp_demo_app_payment_success_ref,
+                                paymentResponse.paymentReference
+                            ),
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }.doIfError { error ->
+                    lifecycleScope.launch {
+                        confirmPaymentResult(
+                            orderId = createdOrderId,
+                            status = "canceled",
+                            errorMessage = error.message
+                        )
+                    }
+                    showError(error.message ?: getString(R.string.point_mainapp_demo_app_payment_error))
                 }
             }
+        }
+    }
+
+    private fun showError(message: String) {
+        binding?.pointMainappDemoAppCartError?.apply {
+            text = message
+            visibility = View.VISIBLE
         }
     }
 
@@ -174,47 +204,47 @@ class CartActivity : AppCompatActivity() {
         }
     }
 
-    private fun showErrorSnackBar(message: String) {
-        binding?.root?.let { root ->
-            Snackbar.make(root, message, Snackbar.LENGTH_LONG).show()
-        }
-    }
-
-    private fun setupToolbar() {
-        binding?.pointMainappDemoAppCartToolbar?.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
-    }
-
-    private fun setupRecyclerView() {
-        binding?.pointMainappDemoAppCartRecycler?.apply {
-            layoutManager = LinearLayoutManager(this@CartActivity)
-            this.adapter = this@CartActivity.adapter
-        }
-    }
-
     private fun observeCart() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.items.collect { items ->
                 if (items.isEmpty()) {
                     binding?.apply {
                         pointMainappDemoAppCartEmpty.visibility = View.VISIBLE
-                        pointMainappDemoAppCartRecycler.visibility = View.GONE
-                        pointMainappDemoAppCartTotalContainer.visibility = View.GONE
-                        pointMainappDemoAppCartGoToPay.visibility = View.GONE
+                        pointMainappDemoAppCartScroll.visibility = View.GONE
+                        pointMainappDemoAppCartBottom.visibility = View.GONE
                     }
                 } else {
+                    val totalItems = items.sumOf { it.quantity }
+                    val totalAmount = viewModel.totalAmount
+                    val totalFormatted = formatPrice(totalAmount)
+
                     binding?.apply {
                         pointMainappDemoAppCartEmpty.visibility = View.GONE
-                        pointMainappDemoAppCartRecycler.visibility = View.VISIBLE
-                        pointMainappDemoAppCartTotalContainer.visibility = View.VISIBLE
-                        pointMainappDemoAppCartGoToPay.visibility = View.VISIBLE
-                        pointMainappDemoAppCartTotalLabel.text =
-                            getString(R.string.point_mainapp_demo_app_cart_total, String.format(Locale.US, "$%.2f", viewModel.totalAmount))
+                        pointMainappDemoAppCartScroll.visibility = View.VISIBLE
+                        pointMainappDemoAppCartBottom.visibility = View.VISIBLE
+
+                        val countText = if (totalItems == 1)
+                            getString(R.string.point_mainapp_demo_app_cart_product_count_one)
+                        else
+                            getString(R.string.point_mainapp_demo_app_cart_product_count, totalItems)
+                        pointMainappDemoAppCartSubtotalLabel.text =
+                            "${getString(R.string.point_mainapp_demo_app_cart_subtotal)} $countText"
+                        pointMainappDemoAppCartSubtotalAmount.text = totalFormatted
+                        pointMainappDemoAppCartTotalAmount.text = totalFormatted
+                        pointMainappDemoAppCartGoToPay.text =
+                            getString(R.string.point_mainapp_demo_app_cart_pay_amount, totalFormatted)
                     }
                     adapter.submitList(items)
                 }
             }
         }
     }
+
+    private fun formatPrice(price: Double): String =
+        String.format(Locale.US, "$%,.0f", price)
+
+    private fun getInitials(name: String): String =
+        name.split(" ").mapNotNull { it.firstOrNull()?.uppercase() }.take(2).joinToString("")
 
     companion object {
         const val EXTRA_STORE_NAME = "extra_store_name"

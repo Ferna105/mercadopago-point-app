@@ -1,11 +1,15 @@
 package com.barrita.android.mainapp.app.cart
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.barrita.android.mainapp.app.R
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppItemCartBinding
+import com.barrita.android.mainapp.app.util.ImageLoader
+import java.util.Locale
 
 class CartAdapter(
     private val onAddQuantity: (String) -> Unit = {},
@@ -32,14 +36,57 @@ class CartAdapter(
 
         fun bind(item: CartItem) {
             val product = item.product
+            val ctx = binding.root.context
+
             binding.pointMainappDemoAppCartItemName.text = product.name
-            binding.pointMainappDemoAppCartItemPrice.text = "$${product.price} c/u"
+
+            val unitPrice = formatPrice(product.finalPrice)
+            binding.pointMainappDemoAppCartItemUnitPrice.text =
+                ctx.getString(R.string.point_mainapp_demo_app_cart_unit_price, unitPrice)
+
             binding.pointMainappDemoAppCartItemQuantity.text = item.quantity.toString()
-            binding.pointMainappDemoAppCartItemSubtotal.text = "$${String.format("%.2f", item.subtotal)}"
+
+            binding.pointMainappDemoAppCartItemSubtotal.text =
+                formatPrice(product.finalPrice * item.quantity)
+
+            loadProductImage(product.imageUrl, product.images)
+
             binding.pointMainappDemoAppCartItemPlus.setOnClickListener { onAddQuantity(product.id) }
-            binding.pointMainappDemoAppCartItemMinus.setOnClickListener { onSubtractQuantity(product.id) }
-            binding.pointMainappDemoAppCartItemRemove.setOnClickListener { onRemove(product.id) }
+            binding.pointMainappDemoAppCartItemMinus.setOnClickListener {
+                if (item.quantity <= 1) {
+                    onRemove(product.id)
+                } else {
+                    onSubtractQuantity(product.id)
+                }
+            }
         }
+
+        private fun loadProductImage(imageUrl: String?, images: List<String>?) {
+            val url = images?.firstOrNull() ?: imageUrl
+            if (url.isNullOrBlank()) {
+                binding.pointMainappDemoAppCartItemImage.visibility = View.GONE
+                binding.pointMainappDemoAppCartItemPlaceholder.visibility = View.VISIBLE
+                return
+            }
+            binding.pointMainappDemoAppCartItemPlaceholder.visibility = View.GONE
+            binding.pointMainappDemoAppCartItemImage.visibility = View.VISIBLE
+            if (url.startsWith("http")) {
+                ImageLoader.load(binding.pointMainappDemoAppCartItemImage, url)
+            } else {
+                val resId = binding.root.context.resources.getIdentifier(
+                    url, "drawable", binding.root.context.packageName
+                )
+                if (resId != 0) {
+                    binding.pointMainappDemoAppCartItemImage.setImageResource(resId)
+                } else {
+                    binding.pointMainappDemoAppCartItemImage.visibility = View.GONE
+                    binding.pointMainappDemoAppCartItemPlaceholder.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        private fun formatPrice(price: Double): String =
+            String.format(Locale.US, "$%,.0f", price)
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<CartItem>() {

@@ -1,116 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/ui_1_25m"
-    app:cardBackgroundColor="@color/dark_grey"
-    app:cardCornerRadius="@dimen/ui_1_25m"
-    app:cardElevation="@dimen/ui_025m"
-    app:strokeColor="@color/gray_200"
-    app:strokeWidth="1dp">
+    android:layout_height="83dp"
+    android:background="@android:color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="20dp">
 
+    <!-- Product image / placeholder -->
+    <FrameLayout
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="12dp">
+
+        <ImageView
+            android:id="@+id/point_mainapp_demo_app_cart_item_image"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/point_mainapp_demo_app_cart_img_bg"
+            android:clipToOutline="true"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/point_mainapp_demo_app_cart_item_placeholder"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/point_mainapp_demo_app_cart_img_placeholder_bg">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/point_mainapp_demo_app_ic_package" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <!-- Name + unit price -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/ui_2m">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_cart_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/barrita_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Café Americano" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/point_mainapp_demo_app_cart_item_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="@dimen/ui_medium_body_size"
-                    android:textStyle="bold"
-                    tools:text="Café Americano" />
-
-                <TextView
-                    android:id="@+id/point_mainapp_demo_app_cart_item_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ui_050m"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="@dimen/ui_body_size"
-                    tools:text="$2.50" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/point_mainapp_demo_app_cart_item_subtotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="$5.00" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_cart_item_unit_price"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ui_2m"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/barrita_text_muted"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="$2.500 c/u" />
+    </LinearLayout>
+
+    <!-- Right: stepper + line total -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <!-- Stepper pill -->
+        <LinearLayout
+            android:layout_width="84dp"
+            android:layout_height="30dp"
+            android:background="@drawable/point_mainapp_demo_app_cart_stepper_bg"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/point_mainapp_demo_app_cart_item_minus"
-                style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonSecondary"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:padding="0dp"
-                android:text="-"
-                android:textSize="18sp" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/point_mainapp_demo_app_ic_minus" />
 
             <TextView
                 android:id="@+id/point_mainapp_demo_app_cart_item_quantity"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/ui_2m"
-                android:minWidth="48dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="16sp"
+                android:textColor="@color/barrita_text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"
                 tools:text="2" />
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/point_mainapp_demo_app_cart_item_plus"
-                style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonPrimary"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:padding="0dp"
-                android:text="+"
-                android:textSize="18sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/point_mainapp_demo_app_cart_item_remove"
-                style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonSecondary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/point_mainapp_demo_app_cart_remove"
-                android:textSize="12sp" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/point_mainapp_demo_app_ic_plus_dark" />
         </LinearLayout>
+
+        <!-- Line total -->
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_cart_item_subtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/barrita_text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="$5.000" />
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</LinearLayout>

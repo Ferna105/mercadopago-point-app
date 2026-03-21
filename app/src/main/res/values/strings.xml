@@ -128,6 +128,18 @@
     <string name="point_mainapp_demo_app_cart_clear">Vaciar carrito</string>
     <string name="point_mainapp_demo_app_cart_clear_confirm">¿Deseas vaciar el carrito?</string>
     <string name="point_mainapp_demo_app_cart_clear_yes">Sí, vaciar</string>
+    <string name="point_mainapp_demo_app_cart_your_order">Tu pedido</string>
+    <string name="point_mainapp_demo_app_cart_section_products">PRODUCTOS</string>
+    <string name="point_mainapp_demo_app_cart_section_summary">RESUMEN</string>
+    <string name="point_mainapp_demo_app_cart_keep_choosing">Seguir eligiendo</string>
+    <string name="point_mainapp_demo_app_cart_subtotal">Subtotal</string>
+    <string name="point_mainapp_demo_app_cart_total_label">Total</string>
+    <string name="point_mainapp_demo_app_cart_pay_with_mp">Pagás con Mercado Pago</string>
+    <string name="point_mainapp_demo_app_cart_pay_amount">Pagar %s</string>
+    <string name="point_mainapp_demo_app_cart_processing">Procesando…</string>
+    <string name="point_mainapp_demo_app_cart_unit_price">%s c/u</string>
+    <string name="point_mainapp_demo_app_cart_product_count">(%d productos)</string>
+    <string name="point_mainapp_demo_app_cart_product_count_one">(1 producto)</string>
 
     <!-- Smart info -->
     <string name="point_mainapp_demo_app_smart_info_main_title">Smart info</string>

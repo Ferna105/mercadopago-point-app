@@ -1,94 +1,354 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
+    android:background="@color/barrita_background"
+    android:orientation="vertical"
     tools:context=".cart.CartActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <!-- ── Header 64dp ── -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="64dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/point_mainapp_demo_app_cart_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/dark_grey"
-            app:title="@string/point_mainapp_demo_app_cart_title"
-            app:titleTextColor="@color/primaryTextColor"
-            app:navigationIcon="@drawable/point_mainapp_demo_app_white_arrow_back"
-            app:navigationIconTint="@color/primaryTextColor" />
-    </com.google.android.material.appbar.AppBarLayout>
+        <!-- Back button -->
+        <FrameLayout
+            android:id="@+id/point_mainapp_demo_app_cart_back"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/point_mainapp_demo_app_cart_back_btn_bg"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/point_mainapp_demo_app_ic_chevron_left" />
+        </FrameLayout>
+
+        <!-- Title + store name -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/point_mainapp_demo_app_cart_your_order"
+                android:textColor="@color/barrita_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_cart_header_store_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/barrita_text_muted"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="La Luna Bar" />
+        </LinearLayout>
+
+        <!-- Store initials badge -->
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_cart_header_initials"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/point_mainapp_demo_app_cart_initials_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            tools:text="LB" />
+    </LinearLayout>
+
+    <!-- Header border -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/barrita_border" />
+
+    <!-- ── Empty state (visible when cart is empty) ── -->
+    <LinearLayout
+        android:id="@+id/point_mainapp_demo_app_cart_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🛒"
+            android:textSize="32sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/point_mainapp_demo_app_cart_empty"
+            android:textColor="@color/barrita_text_secondary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- ── Scrollable content ── -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/point_mainapp_demo_app_cart_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/ui_3m">
+            android:paddingTop="8dp">
 
-            <TextView
-                android:id="@+id/point_mainapp_demo_app_cart_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="@dimen/ui_5m"
-                android:text="@string/point_mainapp_demo_app_cart_empty"
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="18sp"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/point_mainapp_demo_app_cart_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:visibility="gone"
-                tools:itemCount="3"
-                tools:listitem="@layout/point_mainapp_demo_app_item_cart"
-                tools:visibility="visible" />
-
+            <!-- ── PRODUCTOS section ── -->
             <LinearLayout
-                android:id="@+id/point_mainapp_demo_app_cart_total_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/ui_3m"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <!-- Section label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="0.09"
+                    android:paddingStart="20dp"
+                    android:text="@string/point_mainapp_demo_app_cart_section_products"
+                    android:textColor="@color/barrita_text_muted"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
+
+                <!-- Product items RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/point_mainapp_demo_app_cart_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/point_mainapp_demo_app_item_cart" />
+
+                <!-- Divider before "Seguir eligiendo" -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="#F0EFED" />
+
+                <!-- "Seguir eligiendo" row -->
+                <LinearLayout
+                    android:id="@+id/point_mainapp_demo_app_cart_keep_choosing"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/point_mainapp_demo_app_ic_plus"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/point_mainapp_demo_app_cart_keep_choosing"
+                        android:textColor="@color/barrita_teal"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 8dp gap -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <!-- ── RESUMEN section ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <!-- Section label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="0.09"
+                    android:paddingStart="20dp"
+                    android:text="@string/point_mainapp_demo_app_cart_section_summary"
+                    android:textColor="@color/barrita_text_muted"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="20dp">
 
-                    <TextView
-                        android:id="@+id/point_mainapp_demo_app_cart_total_label"
-                        android:layout_width="wrap_content"
+                    <!-- Subtotal row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        tools:text="Total: $15.00" />
-                </LinearLayout>
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/point_mainapp_demo_app_cart_go_to_pay"
-                    style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonPrimary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ui_2m"
-                    android:text="@string/point_mainapp_demo_app_cart_go_to_pay" />
+                        <TextView
+                            android:id="@+id/point_mainapp_demo_app_cart_subtotal_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/barrita_text_secondary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:text="Subtotal (3 productos)" />
+
+                        <TextView
+                            android:id="@+id/point_mainapp_demo_app_cart_subtotal_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/barrita_text_secondary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:text="$12.500" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="12dp"
+                        android:background="#F0EFED" />
+
+                    <!-- Total row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/point_mainapp_demo_app_cart_total_label"
+                            android:textColor="@color/barrita_text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/point_mainapp_demo_app_cart_total_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/barrita_text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="$12.500" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
+            <!-- Bottom spacer for scroll -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <!-- ── Bottom payment section ── -->
+    <LinearLayout
+        android:id="@+id/point_mainapp_demo_app_cart_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="20dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!-- Error -->
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_cart_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/point_mainapp_demo_app_closed_banner_bg"
+            android:padding="12dp"
+            android:textColor="#DC2626"
+            android:textSize="13sp"
+            android:visibility="gone"
+            tools:text="Error al crear el pedido"
+            tools:visibility="visible" />
+
+        <!-- "Pagás con Mercado Pago" -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginEnd="7dp"
+                android:background="@drawable/point_mainapp_demo_app_mp_dot" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/point_mainapp_demo_app_cart_pay_with_mp"
+                android:textColor="@color/barrita_text_muted"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Pay button -->
+        <TextView
+            android:id="@+id/point_mainapp_demo_app_cart_go_to_pay"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/point_mainapp_demo_app_cart_pay_btn_bg"
+            android:gravity="center"
+            android:textColor="@color/barrita_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Pagar $12.500" />
+
+    </LinearLayout>
+
+</LinearLayout>
