@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setupUserInfo() {
         val userEmail = SessionManager.getUserEmail(this)
         binding.pointMainappDemoAppUserEmail.text = userEmail ?: ""
+        binding.pointMainappDemoAppHomeUserInitials.text = getInitials(userEmail)
     }
 
     private fun setupButtons() {
@@ -37,6 +38,17 @@ class HomeActivity : AppCompatActivity() {
             SessionManager.clearSession(this)
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+        }
+    }
+
+    private fun getInitials(email: String?): String {
+        if (email.isNullOrBlank()) return "??"
+        val name = email.substringBefore("@")
+        val parts = name.split(".", "_", "-").filter { it.isNotEmpty() }
+        return if (parts.size >= 2) {
+            (parts[0].first().uppercase() + parts[1].first().uppercase())
+        } else {
+            name.take(2).uppercase()
         }
     }
 

@@ -1,58 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
-    android:padding="@dimen/ui_3m">
+    android:background="#FAFAF9">
 
-    <TextView
-        android:id="@+id/point_mainapp_demo_app_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_5m"
-        android:text="@string/point_mainapp_demo_app_title"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="@color/primaryTextColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/point_mainapp_demo_app_user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_2m"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        tools:text="usuario@email.com"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_title" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/point_mainapp_demo_app_btn_my_stores"
-        style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonPrimary"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_5m"
-        android:text="@string/point_mainapp_demo_app_home_btn_my_stores"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_user_email" />
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/point_mainapp_demo_app_home_card_bg"
+        android:orientation="vertical"
+        android:paddingHorizontal="28dp"
+        android:paddingTop="36dp"
+        android:paddingBottom="28dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/point_mainapp_demo_app_btn_logout"
-        style="@style/point_mainapp_demo_appTheme.ButtonTheme.ButtonSecondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_2m"
-        android:text="@string/point_mainapp_demo_app_home_btn_logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_btn_my_stores" />
+        <!-- Logo -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/point_mainapp_demo_app_login_logo_bg">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="B"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/point_mainapp_demo_app_login_brand"
+                android:textColor="@color/barrita_text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="#F0EFED" />
+
+        <!-- User info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_home_user_initials"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/point_mainapp_demo_app_home_user_badge_bg"
+                android:gravity="center"
+                android:textColor="#0C5A5A"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                tools:text="FE" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/point_mainapp_demo_app_user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/barrita_text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="usuario@email.com" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Operador Point"
+                    android:textColor="@color/barrita_text_secondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#F0EFED" />
+
+        <!-- My Stores button -->
+        <LinearLayout
+            android:id="@+id/point_mainapp_demo_app_btn_my_stores"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/point_mainapp_demo_app_home_btn_primary_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@null"
+                android:src="@drawable/point_mainapp_demo_app_ic_store" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:text="@string/point_mainapp_demo_app_home_btn_my_stores"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Logout button -->
+        <LinearLayout
+            android:id="@+id/point_mainapp_demo_app_btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/point_mainapp_demo_app_home_btn_secondary_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="1dp"
+                android:contentDescription="@null"
+                android:src="@drawable/point_mainapp_demo_app_ic_logout" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/point_mainapp_demo_app_home_btn_logout"
+                android:textColor="#78716C"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -16,7 +16,7 @@ import com.barrita.android.mainapp.app.data.SessionManager
 import com.barrita.android.mainapp.app.data.dto.Store
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppActivityStoreProductsListBinding
 import com.barrita.android.mainapp.app.view.login.LoginActivity
-import com.barrita.android.mainapp.app.view.productdetail.ProductDetailActivity
+
 import com.barrita.android.mainapp.app.util.StoreHoursHelper
 import com.barrita.android.mainapp.app.view.storeproductslist.adapter.StoreListBuilder
 import com.barrita.android.mainapp.app.view.storeproductslist.adapter.StoreProductsListAdapter
@@ -31,12 +31,6 @@ class StoreProductsListActivity : AppCompatActivity() {
     private val collapsedCategories = mutableSetOf<String>()
 
     private val adapter = StoreProductsListAdapter(
-        onItemClick = { product ->
-            startActivity(
-                Intent(this, ProductDetailActivity::class.java)
-                    .putExtra(ProductDetailActivity.EXTRA_PRODUCT_ID, product.id)
-            )
-        },
         onAddToCart = { product ->
             CartRepository.addProduct(product, 1)
         },

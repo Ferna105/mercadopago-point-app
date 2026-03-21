@@ -25,7 +25,6 @@ import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppItemStoreH
 import java.util.Locale
 
 class StoreProductsListAdapter(
-    private val onItemClick: (Product) -> Unit = {},
     private val onAddToCart: (Product) -> Unit = {},
     private val onCategoryToggle: (String) -> Unit = {},
     private val onSearchQueryChanged: (String) -> Unit = {},
@@ -274,7 +273,6 @@ class StoreProductsListAdapter(
                 String.format(Locale.US, "$%,.0f", product.finalPrice)
 
             loadProductImage(product.imageUrl)
-            binding.root.setOnClickListener { onItemClick(product) }
             binding.pointMainappDemoAppProductAddToCart.setOnClickListener {
                 it.isClickable = false
                 onAddToCart(product)
