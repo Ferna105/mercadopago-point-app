@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.barrita.android.mainapp.app.R
 import com.barrita.android.mainapp.app.cart.CartActivity
@@ -40,9 +39,6 @@ class StoreProductsListActivity : AppCompatActivity() {
         },
         onAddToCart = { product ->
             CartRepository.addProduct(product, 1)
-            binding?.root?.let { root ->
-                Snackbar.make(root, "${product.name} agregado al carrito", Snackbar.LENGTH_SHORT).show()
-            }
         },
         onCategoryToggle = { category ->
             if (collapsedCategories.contains(category)) {

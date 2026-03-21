@@ -1,83 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor">
+    android:background="@color/barrita_background"
+    android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/point_mainapp_demo_app_my_stores_toolbar"
+    <!-- Header -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/dark_grey"
-        app:title="@string/point_mainapp_demo_app_home_stores_title"
-        app:titleTextColor="@color/primaryTextColor"
-        app:navigationIcon="@drawable/point_mainapp_demo_app_white_arrow_back"
-        app:navigationIconTint="@color/primaryTextColor"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/point_mainapp_demo_app_my_stores_user_email"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_2m"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        tools:text="usuario@email.com"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_toolbar" />
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="28dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/point_mainapp_demo_app_stores_title"
+            android:textColor="@color/barrita_text_primary"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/point_mainapp_demo_app_stores_subtitle"
+            android:textColor="@color/barrita_text_secondary"
+            android:textSize="13sp" />
+
+        <!-- Summary badges -->
+        <LinearLayout
+            android:id="@+id/point_mainapp_demo_app_my_stores_badges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_badge_total"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="@drawable/point_mainapp_demo_app_summary_badge_total_bg"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/barrita_text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                tools:text="3 en total" />
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_badge_active"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/point_mainapp_demo_app_summary_badge_active_bg"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/barrita_teal"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="2 habilitadas"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_badge_inactive"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/point_mainapp_demo_app_summary_badge_inactive_bg"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:textColor="#737373"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="1 deshabilitada"
+                tools:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Loading -->
     <ProgressBar
         android:id="@+id/point_mainapp_demo_app_my_stores_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_user_email" />
+        tools:visibility="visible" />
 
+    <!-- Store list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/point_mainapp_demo_app_my_stores_recycler"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_user_email"
+        android:visibility="gone"
         tools:listitem="@layout/point_mainapp_demo_app_item_store"
-        tools:itemCount="3" />
+        tools:visibility="visible" />
 
+    <!-- Empty -->
     <TextView
         android:id="@+id/point_mainapp_demo_app_my_stores_empty_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/point_mainapp_demo_app_home_no_stores"
+        android:textColor="@color/barrita_text_secondary"
         android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_user_email" />
+        android:visibility="gone" />
 
+    <!-- Error -->
     <TextView
         android:id="@+id/point_mainapp_demo_app_my_stores_error_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#DC2626"
         android:textSize="16sp"
-        android:textColor="@android:color/holo_red_dark"
         android:visibility="gone"
-        tools:text="Error al cargar tiendas"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_mainapp_demo_app_my_stores_user_email" />
+        tools:text="Error al cargar tiendas" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.barrita.android.mainapp.app.view.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
 
     private var binding: PointMainappDemoAppActivityLoginBinding? = null
     private val authService = NetworkDependencyProvider.authService
+    private var passwordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         binding = PointMainappDemoAppActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setupLoginButton()
+        setupPasswordToggle()
     }
 
     private fun setupLoginButton() {
@@ -38,11 +41,26 @@ class LoginActivity : AppCompatActivity() {
             val password = binding?.pointMainappDemoAppLoginPassword?.text?.toString() ?: ""
 
             if (email.isBlank() || password.isBlank()) {
-                showError(getString(R.string.point_mainapp_demo_app_login_error))
+                showError(getString(R.string.point_mainapp_demo_app_login_fields_required))
                 return@setOnClickListener
             }
 
             performLogin(email, password)
+        }
+    }
+
+    private fun setupPasswordToggle() {
+        binding?.pointMainappDemoAppLoginTogglePassword?.setOnClickListener {
+            passwordVisible = !passwordVisible
+            val passwordField = binding?.pointMainappDemoAppLoginPassword ?: return@setOnClickListener
+            if (passwordVisible) {
+                passwordField.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding?.pointMainappDemoAppLoginTogglePassword?.setImageResource(R.drawable.point_mainapp_demo_app_ic_eye_off)
+            } else {
+                passwordField.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding?.pointMainappDemoAppLoginTogglePassword?.setImageResource(R.drawable.point_mainapp_demo_app_ic_eye)
+            }
+            passwordField.setSelection(passwordField.text?.length ?: 0)
         }
     }
 
@@ -57,13 +75,16 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     response.body()?.let { loginResponse ->
                         onLoginSuccess(loginResponse)
-                    } ?: showError(getString(R.string.point_mainapp_demo_app_login_error))
+                    } ?: run {
+                        showError(getString(R.string.point_mainapp_demo_app_login_error))
+                        setLoading(false)
+                    }
                 } else {
                     showError(getString(R.string.point_mainapp_demo_app_login_error))
+                    setLoading(false)
                 }
             } catch (e: Exception) {
                 showError(getString(R.string.point_mainapp_demo_app_login_error))
-            } finally {
                 setLoading(false)
             }
         }
@@ -83,6 +104,7 @@ class LoginActivity : AppCompatActivity() {
             navigateToHome()
         } else {
             showError(getString(R.string.point_mainapp_demo_app_login_error))
+            setLoading(false)
         }
     }
 
@@ -98,5 +120,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setLoading(loading: Boolean) {
         binding?.pointMainappDemoAppLoginButton?.isEnabled = !loading
+        binding?.pointMainappDemoAppLoginButton?.text =
+            if (loading) getString(R.string.point_mainapp_demo_app_login_loading)
+            else getString(R.string.point_mainapp_demo_app_login_submit)
+        binding?.pointMainappDemoAppLoginUsername?.isEnabled = !loading
+        binding?.pointMainappDemoAppLoginPassword?.isEnabled = !loading
     }
 }

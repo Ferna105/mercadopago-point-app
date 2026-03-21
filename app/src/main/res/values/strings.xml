@@ -7,6 +7,18 @@
     <string name="point_mainapp_demo_app_home_btn_logout">Logout</string>
     <string name="point_mainapp_demo_app_home_no_stores">No tienes tiendas configuradas</string>
     <string name="point_mainapp_demo_app_home_error">Error al cargar las tiendas</string>
+    <string name="point_mainapp_demo_app_stores_title">Tiendas</string>
+    <string name="point_mainapp_demo_app_stores_subtitle">Configurá y gestioná tus puntos de venta.</string>
+    <string name="point_mainapp_demo_app_stores_badge_total">%d en total</string>
+    <string name="point_mainapp_demo_app_stores_badge_active">%d habilitada</string>
+    <string name="point_mainapp_demo_app_stores_badge_active_plural">%d habilitadas</string>
+    <string name="point_mainapp_demo_app_stores_badge_inactive">%d deshabilitada</string>
+    <string name="point_mainapp_demo_app_stores_badge_inactive_plural">%d deshabilitadas</string>
+    <string name="point_mainapp_demo_app_stores_open_now">Abierta ahora</string>
+    <string name="point_mainapp_demo_app_stores_disabled">Deshabilitada</string>
+    <string name="point_mainapp_demo_app_stores_no_schedule">Sin horario configurado</string>
+    <string name="point_mainapp_demo_app_stores_no_payment">Sin método de cobro</string>
+    <string name="point_mainapp_demo_app_stores_mercado_pago">Mercado Pago</string>
 
     <!-- Login -->
     <string name="point_mainapp_demo_app_login_title">Iniciar sesión</string>
@@ -15,6 +27,15 @@
     <string name="point_mainapp_demo_app_login_button">Entrar</string>
     <string name="point_mainapp_demo_app_login_mercado_pago">Ingresar con Mercado Pago</string>
     <string name="point_mainapp_demo_app_login_error">Usuario o contraseña incorrectos</string>
+    <string name="point_mainapp_demo_app_login_brand">barrita</string>
+    <string name="point_mainapp_demo_app_login_subtitle">Ingresá tus credenciales para continuar</string>
+    <string name="point_mainapp_demo_app_login_email_label">Email</string>
+    <string name="point_mainapp_demo_app_login_email_placeholder">tu@mail.com</string>
+    <string name="point_mainapp_demo_app_login_password_label">Contraseña</string>
+    <string name="point_mainapp_demo_app_login_password_placeholder">••••••••</string>
+    <string name="point_mainapp_demo_app_login_submit">Iniciar sesión</string>
+    <string name="point_mainapp_demo_app_login_loading">Iniciando sesión…</string>
+    <string name="point_mainapp_demo_app_login_fields_required">Email y contraseña son obligatorios</string>
     <string name="point_mainapp_demo_app_lab_send_payment_action">Launch Payment</string>
     <string name="point_mainapp_demo_app_lab_get_payment_method_action">Get Payment method</string>
     <string name="point_mainapp_demo_app_title">Barrita</string>

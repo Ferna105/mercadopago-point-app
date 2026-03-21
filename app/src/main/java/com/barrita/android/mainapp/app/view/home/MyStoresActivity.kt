@@ -2,7 +2,6 @@ package com.barrita.android.mainapp.app.view.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -34,21 +33,8 @@ class MyStoresActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setupToolbar()
-        setupUserInfo()
         setupRecyclerView()
         loadStores()
-    }
-
-    private fun setupToolbar() {
-        binding.pointMainappDemoAppMyStoresToolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-    }
-
-    private fun setupUserInfo() {
-        val userEmail = SessionManager.getUserEmail(this)
-        binding.pointMainappDemoAppMyStoresUserEmail.text = userEmail ?: ""
     }
 
     private fun setupRecyclerView() {
@@ -71,9 +57,7 @@ class MyStoresActivity : AppCompatActivity() {
     private fun fetchStores(accessToken: String, isRetry: Boolean) {
         lifecycleScope.launch {
             try {
-                Log.d("DEBUG_0b902f", "[FETCH] Making request to stores endpoint, isRetry=$isRetry")
                 val response = storesService.getStores("Bearer $accessToken")
-                Log.d("DEBUG_0b902f", "[FETCH] Response code=${response.code()}, isSuccessful=${response.isSuccessful}")
 
                 when {
                     response.isSuccessful -> {
@@ -82,12 +66,10 @@ class MyStoresActivity : AppCompatActivity() {
                         if (stores.isEmpty()) {
                             showEmpty()
                         } else {
-                            Log.d("DEBUG_0b902f", "SUCCESS: Loaded ${stores.size} stores")
                             showStores(stores)
                         }
                     }
                     response.code() == 401 && !isRetry -> {
-                        Log.d("DEBUG_0b902f", "[REFRESH] Got 401, attempting token refresh...")
                         tryRefreshToken()
                     }
                     else -> {
@@ -95,7 +77,6 @@ class MyStoresActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Log.d("DEBUG_0b902f", "[FETCH] EXCEPTION: ${e.javaClass.simpleName}: ${e.message}")
                 showError(getString(R.string.point_mainapp_demo_app_home_error))
             }
         }
@@ -141,15 +122,44 @@ class MyStoresActivity : AppCompatActivity() {
             pointMainappDemoAppMyStoresRecycler.visibility = View.GONE
             pointMainappDemoAppMyStoresEmptyMessage.visibility = View.GONE
             pointMainappDemoAppMyStoresErrorMessage.visibility = View.GONE
+            pointMainappDemoAppMyStoresBadges.visibility = View.GONE
         }
     }
 
     private fun showStores(stores: List<Store>) {
+        val total = stores.size
+        val active = stores.count { it.status == "active" }
+        val inactive = total - active
+
         binding.apply {
             pointMainappDemoAppMyStoresProgress.visibility = View.GONE
             pointMainappDemoAppMyStoresRecycler.visibility = View.VISIBLE
             pointMainappDemoAppMyStoresEmptyMessage.visibility = View.GONE
             pointMainappDemoAppMyStoresErrorMessage.visibility = View.GONE
+
+            pointMainappDemoAppMyStoresBadges.visibility = View.VISIBLE
+            pointMainappDemoAppBadgeTotal.text =
+                getString(R.string.point_mainapp_demo_app_stores_badge_total, total)
+
+            if (active > 0) {
+                pointMainappDemoAppBadgeActive.visibility = View.VISIBLE
+                pointMainappDemoAppBadgeActive.text = if (active == 1)
+                    getString(R.string.point_mainapp_demo_app_stores_badge_active, active)
+                else
+                    getString(R.string.point_mainapp_demo_app_stores_badge_active_plural, active)
+            } else {
+                pointMainappDemoAppBadgeActive.visibility = View.GONE
+            }
+
+            if (inactive > 0) {
+                pointMainappDemoAppBadgeInactive.visibility = View.VISIBLE
+                pointMainappDemoAppBadgeInactive.text = if (inactive == 1)
+                    getString(R.string.point_mainapp_demo_app_stores_badge_inactive, inactive)
+                else
+                    getString(R.string.point_mainapp_demo_app_stores_badge_inactive_plural, inactive)
+            } else {
+                pointMainappDemoAppBadgeInactive.visibility = View.GONE
+            }
         }
         storesAdapter.submitList(stores)
     }
@@ -160,6 +170,7 @@ class MyStoresActivity : AppCompatActivity() {
             pointMainappDemoAppMyStoresRecycler.visibility = View.GONE
             pointMainappDemoAppMyStoresEmptyMessage.visibility = View.VISIBLE
             pointMainappDemoAppMyStoresErrorMessage.visibility = View.GONE
+            pointMainappDemoAppMyStoresBadges.visibility = View.GONE
         }
     }
 
@@ -170,6 +181,7 @@ class MyStoresActivity : AppCompatActivity() {
             pointMainappDemoAppMyStoresEmptyMessage.visibility = View.GONE
             pointMainappDemoAppMyStoresErrorMessage.visibility = View.VISIBLE
             pointMainappDemoAppMyStoresErrorMessage.text = message
+            pointMainappDemoAppMyStoresBadges.visibility = View.GONE
         }
     }
 

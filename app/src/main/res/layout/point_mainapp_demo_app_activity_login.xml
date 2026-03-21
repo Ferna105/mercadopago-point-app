@@ -1,89 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
-    android:padding="@dimen/ui_3m"
+    android:background="#FAFAF9"
+    android:fillViewport="true"
     tools:context=".view.login.LoginActivity">
 
-    <LinearLayout
-        android:id="@+id/point_mainapp_demo_app_login_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    <TextView
-        android:id="@+id/point_mainapp_demo_app_login_title"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/point_mainapp_demo_app_login_title"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/ui_title_size"
-        android:textStyle="bold" />
+        android:padding="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/point_mainapp_demo_app_login_username_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_4m"
-        android:hint="@string/point_mainapp_demo_app_login_username_hint"
-        app:hintTextColor="@color/grayLight">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/point_mainapp_demo_app_login_username"
+        <!-- Card -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:textColor="@color/primaryTextColor"
-            android:textColorHint="@color/grayLight" />
+            android:layout_gravity="center"
+            android:background="@drawable/point_mainapp_demo_app_login_card_bg"
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Logo -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/point_mainapp_demo_app_login_password_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_2m"
-        android:hint="@string/point_mainapp_demo_app_login_password_hint"
-        app:endIconMode="password_toggle"
-        app:hintTextColor="@color/grayLight">
+                <TextView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/point_mainapp_demo_app_login_logo_bg"
+                    android:gravity="center"
+                    android:text="B"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/point_mainapp_demo_app_login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColor="@color/primaryTextColor"
-            android:textColorHint="@color/grayLight" />
+            <!-- Brand name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/point_mainapp_demo_app_login_brand"
+                android:textColor="@color/barrita_text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Subtitle -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:text="@string/point_mainapp_demo_app_login_subtitle"
+                android:textColor="#737373"
+                android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/point_mainapp_demo_app_login_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_2m"
-        android:visibility="gone"
-        android:textColor="@color/secondaryColor"
-        android:textSize="@dimen/ui_body_line_height_xs"
-        tools:text="Usuario o contraseña incorrectos"
-        tools:visibility="visible" />
+            <!-- Error -->
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_login_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/point_mainapp_demo_app_login_error_bg"
+                android:padding="12dp"
+                android:textColor="#B91C1C"
+                android:textSize="14sp"
+                android:visibility="gone"
+                tools:text="Email o contraseña incorrectos"
+                tools:visibility="visible" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/point_mainapp_demo_app_login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ui_3m"
-        android:text="@string/point_mainapp_demo_app_login_button"
-        app:cornerRadius="@dimen/ui_1_25m" />
+            <!-- Email label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:text="@string/point_mainapp_demo_app_login_email_label"
+                android:textColor="#404040"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <!-- Email input -->
+            <EditText
+                android:id="@+id/point_mainapp_demo_app_login_username"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/point_mainapp_demo_app_login_input_bg"
+                android:hint="@string/point_mainapp_demo_app_login_email_placeholder"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/barrita_text_primary"
+                android:textColorHint="#A3A3A3"
+                android:textSize="14sp"
+                tools:ignore="Autofill" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Password label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/point_mainapp_demo_app_login_password_label"
+                android:textColor="#404040"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Password input with toggle -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <EditText
+                    android:id="@+id/point_mainapp_demo_app_login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/point_mainapp_demo_app_login_input_bg"
+                    android:hint="@string/point_mainapp_demo_app_login_password_placeholder"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="48dp"
+                    android:textColor="@color/barrita_text_primary"
+                    android:textColorHint="#A3A3A3"
+                    android:textSize="14sp"
+                    tools:ignore="Autofill" />
+
+                <ImageButton
+                    android:id="@+id/point_mainapp_demo_app_login_toggle_password"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/point_mainapp_demo_app_ic_eye" />
+            </FrameLayout>
+
+            <!-- Login button -->
+            <TextView
+                android:id="@+id/point_mainapp_demo_app_login_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/point_mainapp_demo_app_login_btn_bg"
+                android:gravity="center"
+                android:text="@string/point_mainapp_demo_app_login_submit"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>
