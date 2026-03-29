@@ -13,11 +13,14 @@ import com.barrita.android.mainapp.app.data.dto.CreateOrderItemRequest
 import com.barrita.android.mainapp.app.data.dto.CreateOrderRequest
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppActivityCartBinding
 import com.barrita.android.mainapp.app.util.PaymentConfirmationDateFormatter
+import com.barrita.android.mainapp.app.util.ReceiptBitmapComposer
+import com.barrita.android.mainapp.app.util.toast
 import com.google.android.material.snackbar.Snackbar
 import com.mercadolibre.android.point_integration_sdk.nativesdk.MPManager
 import com.mercadolibre.android.point_integration_sdk.nativesdk.message.utils.doIfError
 import com.mercadolibre.android.point_integration_sdk.nativesdk.message.utils.doIfSuccess
 import com.mercadolibre.android.point_integration_sdk.nativesdk.payment.data.PaymentFlowRequestData
+import com.mercadolibre.android.point_integration_sdk.nativesdk.payment.data.PaymentResponse
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -93,12 +96,13 @@ class CartActivity : AppCompatActivity() {
                     amount = total,
                     description = description,
                     paymentMethod = null,
-                    printOnTerminal = true,
+                    printOnTerminal = false,
                     taxes = null
                 )
             ) { response ->
                 binding?.pointMainappDemoAppCartGoToPay?.isEnabled = true
                 response.doIfSuccess { paymentResponse ->
+                    val cartSnapshot = CartRepository.items.value.toList()
                     lifecycleScope.launch {
                         confirmPaymentResult(
                             orderId = createdOrderId,
@@ -115,6 +119,12 @@ class CartActivity : AppCompatActivity() {
                         )
                     }
                     viewModel.clearCart()
+                    printPurchaseReceipt(
+                        cartSnapshot = cartSnapshot,
+                        paymentResponse = paymentResponse,
+                        orderId = createdOrderId,
+                        fallbackTotal = total
+                    )
                     binding?.root?.let { root ->
                         Snackbar.make(
                             root,
@@ -202,6 +212,83 @@ class CartActivity : AppCompatActivity() {
             )
         } catch (_: Exception) {
         }
+    }
+
+    private fun printPurchaseReceipt(
+        cartSnapshot: List<CartItem>,
+        paymentResponse: PaymentResponse,
+        orderId: String,
+        fallbackTotal: Double,
+    ) {
+        try {
+            val body = buildReceiptPlainText(
+                cartSnapshot = cartSnapshot,
+                paymentResponse = paymentResponse,
+                orderId = orderId,
+                fallbackTotal = fallbackTotal
+            )
+            val bitmap = ReceiptBitmapComposer.compose(body, orderId)
+            MPManager.bitmapPrinter.print(bitmap) { printResponse ->
+                printResponse.doIfError { error ->
+                    runOnUiThread {
+                        val suffix = error.message?.let { ": $it" }.orEmpty()
+                        toast(getString(R.string.point_mainapp_demo_app_cart_receipt_print_error) + suffix)
+                    }
+                }
+            }
+        } catch (_: Exception) {
+            runOnUiThread {
+                toast(getString(R.string.point_mainapp_demo_app_cart_receipt_print_error))
+            }
+        }
+    }
+
+    private fun buildReceiptPlainText(
+        cartSnapshot: List<CartItem>,
+        paymentResponse: PaymentResponse,
+        orderId: String,
+        fallbackTotal: Double,
+    ): String = buildString {
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_title))
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_separator))
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_store, storeName))
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_order_id, orderId))
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_separator))
+        cartSnapshot.forEach { item ->
+            appendLine(
+                getString(
+                    R.string.point_mainapp_demo_app_cart_receipt_item,
+                    item.quantity,
+                    item.product.name,
+                    formatPrice(item.subtotal)
+                )
+            )
+        }
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_separator))
+        val paid = runCatching { paymentResponse.paymentAmount.toDouble() }.getOrElse { fallbackTotal }
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_total, formatPrice(paid)))
+        paymentResponse.paymentReference.takeIf { it.isNotBlank() }?.let { ref ->
+            appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_ref, ref))
+        }
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_method, paymentResponse.paymentMethod.toString()))
+        val brand = paymentResponse.paymentBrandName.takeIf { it.isNotBlank() }
+        val lastFour = paymentResponse.paymentLastFourDigits.takeIf { it.isNotBlank() }.orEmpty()
+        if (brand != null) {
+            appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_card, brand, lastFour))
+        }
+        paymentResponse.paymentInstallments.takeIf { it.isNotBlank() }?.let { inst ->
+            appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_installments, inst))
+        }
+        paymentResponse.paymentCreationDate.takeIf { it.isNotBlank() }?.let { date ->
+            appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_date, date))
+        }
+        paymentResponse.tipAmount.takeIf { it.isNotBlank() && it != "0" && it != "0.0" }?.let { tip ->
+            appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_tip, tip))
+        }
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_separator))
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_thanks))
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_separator))
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_qr_caption))
     }
 
     private fun observeCart() {

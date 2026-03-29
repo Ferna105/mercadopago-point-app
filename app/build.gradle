@@ -117,4 +117,6 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    // QR en ticket (mismo payload que /payment/success: orderId UUID)
+    implementation 'com.google.zxing:core:3.5.3'
 }

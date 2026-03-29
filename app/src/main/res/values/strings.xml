@@ -161,6 +161,21 @@
     <string name="point_mainapp_demo_app_cart_unit_price">%s c/u</string>
     <string name="point_mainapp_demo_app_cart_product_count">(%d productos)</string>
     <string name="point_mainapp_demo_app_cart_product_count_one">(1 producto)</string>
+    <string name="point_mainapp_demo_app_cart_receipt_title">COMPROBANTE DE COMPRA</string>
+    <string name="point_mainapp_demo_app_cart_receipt_separator">--------------------------------</string>
+    <string name="point_mainapp_demo_app_cart_receipt_store">Tienda: %1$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_order_id">Pedido: %1$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_item">%1$dx %2$s — %3$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_total">TOTAL: %1$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_ref">Ref. pago: %1$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_method">Medio: %1$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_card">Tarjeta: %1$s •••• %2$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_installments">Cuotas: %1$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_date">Fecha: %1$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_tip">Propina: %1$s</string>
+    <string name="point_mainapp_demo_app_cart_receipt_thanks">Gracias por su compra</string>
+    <string name="point_mainapp_demo_app_cart_receipt_qr_caption">Mostrar QR en barra</string>
+    <string name="point_mainapp_demo_app_cart_receipt_print_error">No se pudo imprimir el comprobante</string>
 
     <!-- Smart info -->
     <string name="point_mainapp_demo_app_smart_info_main_title">Smart info</string>
