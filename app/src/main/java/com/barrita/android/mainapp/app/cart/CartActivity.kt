@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.barrita.android.mainapp.app.R
 import com.barrita.android.mainapp.app.data.NetworkDependencyProvider
 import com.barrita.android.mainapp.app.data.dto.ConfirmPaymentRequest
+import com.barrita.android.mainapp.app.data.dto.CreateOrderData
 import com.barrita.android.mainapp.app.data.dto.CreateOrderItemRequest
 import com.barrita.android.mainapp.app.data.dto.CreateOrderRequest
 import com.barrita.android.mainapp.app.databinding.PointMainappDemoAppActivityCartBinding
@@ -84,12 +85,14 @@ class CartActivity : AppCompatActivity() {
         binding?.pointMainappDemoAppCartError?.visibility = View.GONE
 
         lifecycleScope.launch {
-            val createdOrderId = createOrderBeforePayment(total)
-            if (createdOrderId == null) {
+            val createdOrder = createOrderBeforePayment(total)
+            if (createdOrder?.orderId == null) {
                 binding?.pointMainappDemoAppCartGoToPay?.isEnabled = true
                 showError(getString(R.string.point_mainapp_demo_app_payment_error))
                 return@launch
             }
+            val orderId = createdOrder.orderId
+            val orderCode = createdOrder.orderCode ?: orderId
 
             paymentFlow.launchPaymentFlow(
                 PaymentFlowRequestData(
@@ -105,7 +108,7 @@ class CartActivity : AppCompatActivity() {
                     val cartSnapshot = CartRepository.items.value.toList()
                     lifecycleScope.launch {
                         confirmPaymentResult(
-                            orderId = createdOrderId,
+                            orderId = orderId,
                             status = "approved",
                             paymentReference = paymentResponse.paymentReference,
                             amount = paymentResponse.paymentAmount.toString().toDoubleOrNull() ?: total,
@@ -122,7 +125,7 @@ class CartActivity : AppCompatActivity() {
                     printPurchaseReceipt(
                         cartSnapshot = cartSnapshot,
                         paymentResponse = paymentResponse,
-                        orderId = createdOrderId,
+                        orderCode = orderCode,
                         fallbackTotal = total
                     )
                     binding?.root?.let { root ->
@@ -138,7 +141,7 @@ class CartActivity : AppCompatActivity() {
                 }.doIfError { error ->
                     lifecycleScope.launch {
                         confirmPaymentResult(
-                            orderId = createdOrderId,
+                            orderId = orderId,
                             status = "canceled",
                             errorMessage = error.message
                         )
@@ -156,7 +159,7 @@ class CartActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun createOrderBeforePayment(total: Double): String? {
+    private suspend fun createOrderBeforePayment(total: Double): CreateOrderData? {
         val currentStoreId = storeId ?: return null
         val cartItems = CartRepository.items.value
         if (cartItems.isEmpty()) return null
@@ -176,7 +179,7 @@ class CartActivity : AppCompatActivity() {
                     total = total
                 )
             )
-            if (response.isSuccessful) response.body()?.data?.orderId else null
+            if (response.isSuccessful) response.body()?.data else null
         } catch (_: Exception) {
             null
         }
@@ -217,17 +220,17 @@ class CartActivity : AppCompatActivity() {
     private fun printPurchaseReceipt(
         cartSnapshot: List<CartItem>,
         paymentResponse: PaymentResponse,
-        orderId: String,
+        orderCode: String,
         fallbackTotal: Double,
     ) {
         try {
             val body = buildReceiptPlainText(
                 cartSnapshot = cartSnapshot,
                 paymentResponse = paymentResponse,
-                orderId = orderId,
+                orderCode = orderCode,
                 fallbackTotal = fallbackTotal
             )
-            val bitmap = ReceiptBitmapComposer.compose(body, orderId)
+            val bitmap = ReceiptBitmapComposer.compose(body, orderCode)
             MPManager.bitmapPrinter.print(bitmap) { printResponse ->
                 printResponse.doIfError { error ->
                     runOnUiThread {
@@ -246,13 +249,13 @@ class CartActivity : AppCompatActivity() {
     private fun buildReceiptPlainText(
         cartSnapshot: List<CartItem>,
         paymentResponse: PaymentResponse,
-        orderId: String,
+        orderCode: String,
         fallbackTotal: Double,
     ): String = buildString {
         appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_title))
         appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_separator))
         appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_store, storeName))
-        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_order_id, orderId))
+        appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_order_id, orderCode))
         appendLine(getString(R.string.point_mainapp_demo_app_cart_receipt_separator))
         cartSnapshot.forEach { item ->
             appendLine(

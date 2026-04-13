@@ -22,7 +22,8 @@ data class CreateOrderResponse(
 )
 
 data class CreateOrderData(
-    @SerializedName("orderId") val orderId: String?
+    @SerializedName("orderId") val orderId: String?,
+    @SerializedName("orderCode") val orderCode: String?
 )
 
 data class ConfirmPaymentRequest(

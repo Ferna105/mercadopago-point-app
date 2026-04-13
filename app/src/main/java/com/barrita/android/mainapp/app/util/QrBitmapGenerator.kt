@@ -7,10 +7,6 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 
-/**
- * QR con el mismo payload que la web en /payment/success: solo el UUID del pedido.
- * Corrección H y margen silencioso, alineado a qrcode.react level="H" e includeMargin.
- */
 object QrBitmapGenerator {
 
     private val hints: Map<EncodeHintType, Any> = mapOf(
@@ -18,9 +14,9 @@ object QrBitmapGenerator {
         EncodeHintType.MARGIN to 2
     )
 
-    fun bitmapForOrderId(orderId: String, sizePx: Int): Bitmap {
+    fun bitmapFor(content: String, sizePx: Int): Bitmap {
         val matrix = MultiFormatWriter().encode(
-            orderId,
+            content,
             BarcodeFormat.QR_CODE,
             sizePx,
             sizePx,

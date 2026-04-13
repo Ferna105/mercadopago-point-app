@@ -9,12 +9,8 @@ import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 
-/**
- * Un solo bitmap térmico: texto del comprobante + QR del [orderId] debajo (misma cadena que /payment/success).
- */
 object ReceiptBitmapComposer {
 
-    /** Ancho total: debe albergar el QR (2× el tamaño anterior de 200px) más padding. */
     private const val RECEIPT_WIDTH_PX = 432
     private const val HORIZONTAL_PADDING = 16f
     private const val VERTICAL_PADDING = 20f
@@ -22,7 +18,7 @@ object ReceiptBitmapComposer {
     private const val GAP_BEFORE_QR = 20f
     private const val QR_MODULE_PX = 400
 
-    fun compose(receiptText: String, orderId: String): Bitmap {
+    fun compose(receiptText: String, orderCode: String): Bitmap {
         val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             textSize = TEXT_SIZE_PX
             color = Color.BLACK
@@ -34,7 +30,7 @@ object ReceiptBitmapComposer {
             .setIncludePad(false)
             .build()
 
-        val qrBitmap = QrBitmapGenerator.bitmapForOrderId(orderId, QR_MODULE_PX)
+        val qrBitmap = QrBitmapGenerator.bitmapFor(orderCode, QR_MODULE_PX)
         val height = (
             VERTICAL_PADDING + textLayout.height + GAP_BEFORE_QR +
                 qrBitmap.height + VERTICAL_PADDING
