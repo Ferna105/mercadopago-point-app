@@ -11,6 +11,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="textInputStyle">@style/point_mainapp_demo_appTheme.TextInputLayoutTheme</item>
+        <item name="android:windowBackground">@color/barrita_yellow</item>
     </style>
 
     <style name="point_mainapp_demo_appTheme.TextInputLayoutTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

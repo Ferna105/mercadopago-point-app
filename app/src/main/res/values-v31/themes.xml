@@ -1,0 +1,15 @@
+<resources>
+    <style name="point_mainapp_demo_appTheme.main" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/primaryTextColor</item>
+        <item name="android:statusBarColor">@color/barrita_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="textInputStyle">@style/point_mainapp_demo_appTheme.TextInputLayoutTheme</item>
+        <item name="android:windowSplashScreenBackground">@color/barrita_yellow</item>
+    </style>
+</resources>
