@@ -30,16 +30,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
 
-                <TextView
+                <ImageView
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:background="@drawable/point_mainapp_demo_app_login_logo_bg"
-                    android:gravity="center"
-                    android:text="B"
-                    android:textColor="@android:color/white"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:clipToOutline="true"
+                    android:contentDescription="@string/point_mainapp_demo_app_login_brand"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/point_mainapp_demo_app_logo_barrita" />
             </FrameLayout>
 
             <!-- Brand name -->

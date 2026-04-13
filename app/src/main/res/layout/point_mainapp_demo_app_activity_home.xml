@@ -24,20 +24,14 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <FrameLayout
+            <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/point_mainapp_demo_app_login_logo_bg">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="B"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
+                android:background="@drawable/point_mainapp_demo_app_login_logo_bg"
+                android:clipToOutline="true"
+                android:contentDescription="@string/point_mainapp_demo_app_login_brand"
+                android:scaleType="centerCrop"
+                android:src="@drawable/point_mainapp_demo_app_logo_barrita" />
 
             <TextView
                 android:layout_width="wrap_content"
