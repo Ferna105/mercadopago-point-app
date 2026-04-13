@@ -1,5 +1,6 @@
 package com.barrita.android.mainapp.app.view.storeproductslist.adapter
 
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.text.Editable
 import android.text.TextWatcher
@@ -271,6 +272,27 @@ class StoreProductsListAdapter(
 
             binding.pointMainappDemoAppProductPrice.text =
                 String.format(Locale.US, "$%,.0f", product.finalPrice)
+
+            if (product.hasDiscount) {
+                binding.pointMainappDemoAppProductOriginalPrice.apply {
+                    text = String.format(Locale.US, "$%,.0f", product.price)
+                    paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    visibility = View.VISIBLE
+                }
+                binding.pointMainappDemoAppProductDiscountBadge.apply {
+                    text = String.format(Locale.US, "-%.0f%%", product.discount)
+                    visibility = View.VISIBLE
+                }
+                binding.pointMainappDemoAppProductPrice.setTextColor(
+                    ContextCompat.getColor(binding.root.context, R.color.barrita_teal)
+                )
+            } else {
+                binding.pointMainappDemoAppProductOriginalPrice.visibility = View.GONE
+                binding.pointMainappDemoAppProductDiscountBadge.visibility = View.GONE
+                binding.pointMainappDemoAppProductPrice.setTextColor(
+                    ContextCompat.getColor(binding.root.context, R.color.barrita_text_primary)
+                )
+            }
 
             loadProductImage(product.imageUrl)
             binding.pointMainappDemoAppProductAddToCart.setOnClickListener {

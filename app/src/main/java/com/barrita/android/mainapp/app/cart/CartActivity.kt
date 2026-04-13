@@ -173,7 +173,7 @@ class CartActivity : AppCompatActivity() {
                         CreateOrderItemRequest(
                             productId = it.product.id,
                             quantity = it.quantity,
-                            price = it.product.price
+                            price = it.product.finalPrice
                         )
                     },
                     total = total
