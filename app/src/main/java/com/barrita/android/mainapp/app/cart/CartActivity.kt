@@ -146,7 +146,13 @@ class CartActivity : AppCompatActivity() {
                             errorMessage = error.message
                         )
                     }
-                    showError(error.message ?: getString(R.string.point_mainapp_demo_app_payment_error))
+                    val isCancellation = error.message?.contains("cancel", ignoreCase = true) == true
+                    val userMessage = if (isCancellation) {
+                        getString(R.string.point_mainapp_demo_app_payment_cancelled)
+                    } else {
+                        getString(R.string.point_mainapp_demo_app_payment_error)
+                    }
+                    showError(userMessage)
                 }
             }
         }
